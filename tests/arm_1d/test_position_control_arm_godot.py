@@ -17,7 +17,7 @@ class ArmRobot:
         self.arm = GodotArm1D()
         self.plotter = DataPlotter()
         self.controller = PID(2, 0.5, 0)
-        self.target = math.radians(-20)
+        self.target = math.radians(20)
         self.t = 0
         self.torque = 0
 
@@ -33,7 +33,7 @@ class ArmRobot:
         self.plotter.add('error', math.degrees(self.target - theta))
         self.plotter.add('omega', omega)
         self.plotter.add('theta', math.degrees(theta))
-        if self.t >= 20:  # after 20 seconds plot data and stop simulation
+        if self.t >= 10:  # after 20 seconds plot data and stop simulation
             self.plotter.plot(['t', 'time'],
                               [['target', 'Target theta'],
                                ['theta', 'Current Theta']])
