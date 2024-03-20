@@ -39,11 +39,26 @@ class GodotArm1D(GodotInterface):
         return (delta, theta, omega)
 
 
+class GodotCartSimple(GodotInterface):
+
+    def __init__(self, uPort = 4444):
+        super().__init__(uPort)
+
+    def process(self, force, torque):
+        packet = struct.pack("<ff", force, torque)
+        self.sd.sendto(packet, ('localhost', self.port))
+        (reply, remote) = self.sd.recvfrom(1024)
+        (delta, x, y, theta, v, w) = struct.unpack("<ffffff", reply[8:])
+        return (delta, x, y, theta, v, w)
+
+
 
 if __name__ == "__main__":
-    #g = GodotCart1D()
-    g = GodotArm1D()
+    # g = GodotArm1D()
+    # while True:
+    #     print(g.process(0.5))
 
+    g = GodotCartSimple()
     while True:
-        print(g.process(0.5))
+        print(g.process(10, 0.5))
 

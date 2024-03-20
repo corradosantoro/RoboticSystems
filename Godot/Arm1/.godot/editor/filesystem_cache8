@@ -1,8 +1,8 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1710782666
+::res://::1710844540
 icon.svg::CompressedTexture2D::8395649335662476416::1693824218::1693824290::1::::<><>::
 logo.png::CompressedTexture2D::7820584871637645383::1693824218::1693824218::1::::<><>::
-main.tscn::PackedScene::2722885594576814409::1710514603::0::1::::<><>::uid://d0gmvf62uyhd0::::res://addons/kenney_prototype_tools/materials/red/material_01.tres<>uid://b4qvt86p6nbss::::res://objects/robot/robot.tscn
+main.tscn::PackedScene::2722885594576814409::1710783829::0::1::::<><>::uid://d0gmvf62uyhd0::::res://addons/kenney_prototype_tools/materials/red/material_01.tres<>uid://b4qvt86p6nbss::::res://objects/robot/robot.tscn
 ::res://addons/::1693824218
 ::res://addons/kenney_prototype_textures/::1693824218
 LICENSE.txt::TextFile::-1::1693824218::0::1::::<><>::
@@ -359,7 +359,7 @@ Base.obj::Mesh::6085341274402224677::1693824218::1693824290::1::::<><>::
 Gripper Assembly.obj::Mesh::1251000697690992751::1693824218::1693824290::1::::<><>::
 Waist.obj::Mesh::5454351403315804444::1693824218::1693824290::1::::<><>::
 ::res://objects/::1693824218
-::res://objects/robot/::1710514603
+::res://objects/robot/::1710783829
 ArmScript.gd::GDScript::-1::1693824218::0::1::::Arm<>RigidBody3D<>::
 robot.gd::GDScript::-1::1710230771::0::1::::<>Node3D<>::
-robot.tscn::PackedScene::4456237962076247538::1710514603::0::1::::<><>::res://objects/robot/robot.gd<>uid://cjyemus4avome::::res://assets/models/Waist.obj<>uid://csx1xgb6rffur::::res://assets/models/Base.obj<>uid://ixp2sbylccv6::::res://assets/models/Arm 01.obj<>res://objects/robot/ArmScript.gd
+robot.tscn::PackedScene::4456237962076247538::1710783829::0::1::::<><>::res://objects/robot/robot.gd<>uid://cjyemus4avome::::res://assets/models/Waist.obj<>uid://csx1xgb6rffur::::res://assets/models/Base.obj<>uid://ixp2sbylccv6::::res://assets/models/Arm 01.obj<>res://objects/robot/ArmScript.gd
