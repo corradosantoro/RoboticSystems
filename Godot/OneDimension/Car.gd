@@ -45,7 +45,7 @@ func _process(delta):
 	pass
 
 
-var force = 1000
+var force = 3000
 
 func _integrate_forces(state):
 	if Input.is_action_pressed("ui_right"):

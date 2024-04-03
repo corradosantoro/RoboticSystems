@@ -8,7 +8,7 @@ import sys
 
 from pathlib import Path
 CURRENT_POSITION = Path(__file__).parent
-sys.path.append(f"{CURRENT_POSITION}/../")
+sys.path.append(f"{CURRENT_POSITION}/../../")
 
 from lib.controllers.standard import *
 
