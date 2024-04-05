@@ -10,6 +10,7 @@ var initial_position
 func _ready():
 	reset_button.pressed.connect(self._reset_pressed)
 	initial_position = self.global_position
+	initial_position.y -= 10
 	#inizializzazione server
 	server = UDPServer.new()
 	server.listen(udpPort)
