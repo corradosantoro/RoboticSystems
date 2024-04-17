@@ -23,7 +23,7 @@ class AckermannRobot(RoboticSystem):
         # friction = 0.8
         self.car = AckermannSteering(10, 0.8, 0.02, 0.15)
         # 5 Nm max, antiwindup
-        self.speed_controller = PIDSat(2.0, 2.0, 0, 5, True)
+        self.speed_controller = PIDSat(4.0, 2.0, 0, 5, True)
         self.plotter = DataPlotter()
 
     def run(self):

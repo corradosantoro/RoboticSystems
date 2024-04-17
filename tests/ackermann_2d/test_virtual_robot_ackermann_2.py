@@ -24,8 +24,8 @@ class AckermannRobot(RoboticSystem):
         # wheels radius = 2cm
         # friction = 0.8
         self.car = AckermannSteering(10, 0.8, 0.02, 0.15)
-        self.car.x = 0.35
-        self.car.y = 0.1
+        #self.car.x = 0.35
+        #self.car.y = 0.1
         # 5 Nm max, antiwindup
         self.speed_controller = PIDSat(2.0, 2.0, 0, 5, True)
         self.polar_controller = Polar2DController(2.0, 1.5,  # kp = 2, vmax = 1.5 m/s
@@ -36,7 +36,7 @@ class AckermannRobot(RoboticSystem):
 
         (x,y,_) = self.get_pose()
         #self.trajectory.start_motion( (x,y), (0.4, 0.4) )
-        self.trajectory.set_path( [ (0.27, 0.1), (0.19, 0.025) ] )
+        self.trajectory.set_path( [ (0.27, 0.1), (0.49, 0.025) ] )
         self.trajectory.start( (x,y) )
         self.plotter = DataPlotter()
 

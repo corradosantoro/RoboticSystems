@@ -74,5 +74,5 @@ if __name__ == "__main__":
     #g = GodotCartSimple()
     g = GodotCartTwoWheels()
     while True:
-        print(g.process(-10, 10))
+        print(g.process(6, 10))
 
