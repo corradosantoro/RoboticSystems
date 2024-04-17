@@ -19,7 +19,7 @@ class Cart2DRobot(RoboticSystem):
         super().__init__(1e-3)  # delta_t = 1e-3
         self.cart = GodotCartTwoWheels()
 
-        self.polar_controller = Polar2DController(0.7, 2, 4.0, 10)  # v = 2 m/s, w = 2 rad/s
+        self.polar_controller = Polar2DController(0.7, 2, 4.0, 10)  # v = 2 m/s, w = 10 rad/s
 
         self.x = 0
         self.y = 0
