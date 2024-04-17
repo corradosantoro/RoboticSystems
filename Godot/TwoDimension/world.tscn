@@ -107,4 +107,3 @@ fov = 100.0
 
 [node name="Robot" parent="." instance=ExtResource("1_fer1o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.214639, 0)
-udpPort = 4444
