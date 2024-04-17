@@ -22,7 +22,7 @@ class Cart2DRobot(RoboticSystem):
 
     def run(self):
         if self.t < 3:
-            Force = 0.1  # 0.5 Newton
+            Force = 0.1  # 0.1 Newton
             Torque = 0  #
         elif self.t < 6:
             Force = 0.0  #

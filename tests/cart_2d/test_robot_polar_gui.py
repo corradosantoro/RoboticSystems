@@ -10,6 +10,7 @@ from lib.models.robot import RoboticSystem
 from lib.controllers.standard import PIDSat
 from lib.controllers.control2d import Polar2DController
 from lib.gui.gui_2d import CartWindow
+from lib.data.plot import DataPlotter
 
 from PyQt5.QtWidgets import QApplication
 
@@ -25,13 +26,24 @@ class Cart2DRobot(RoboticSystem):
         self.linear_speed_controller = PIDSat(10, 3.5, 0, 5)  # 5 newton
         self.angular_speed_controller = PIDSat(6, 10, 0, 4)  # 4 newton * metro
         self.polar_controller = Polar2DController(0.5, 2, 2.0, 2)  # v = 2 m/s, w = 2 rad/s
+        self.plotter = DataPlotter()
 
     def run(self):
-        (x_target, y_target) = (0.0, 0.2)
+        (x_target, y_target) = (0.5, 0.2)
         (v_target, w_target) = self.polar_controller.evaluate(self.delta_t, x_target, y_target, self.get_pose())
         Force = self.linear_speed_controller.evaluate(self.delta_t, v_target, self.cart.v)
         Torque = self.angular_speed_controller.evaluate(self.delta_t, w_target, self.cart.w)
         self.cart.evaluate(self.delta_t, Force, Torque)
+
+        (x, y, _) = self.get_pose()
+        self.plotter.add('t', self.t)
+        self.plotter.add('x', x)
+        self.plotter.add('y', y)
+        if self.t > 10:
+            self.plotter.plot(['x', 'X'], [['y', 'Y']])
+            self.plotter.show()
+            return False
+
         return True
 
     def get_pose(self):

@@ -14,7 +14,7 @@ size = Vector2(15, 28)
 [sub_resource type="BoxMesh" id="BoxMesh_w4786"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_a1o11"]
-friction = 0.9
+friction = 0.5
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gvim7"]
 size = Vector2(98, 44)
@@ -51,6 +51,7 @@ mesh = SubResource("BoxMesh_w4786")
 
 [node name="Car" type="RigidBody2D" parent="."]
 position = Vector2(58, 519)
+mass = 2.0
 physics_material_override = SubResource("PhysicsMaterial_a1o11")
 can_sleep = false
 script = ExtResource("1_i25mi")

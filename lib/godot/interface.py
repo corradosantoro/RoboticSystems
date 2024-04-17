@@ -52,13 +52,27 @@ class GodotCartSimple(GodotInterface):
         return (delta, x, y, theta, v, w)
 
 
+class GodotCartTwoWheels(GodotInterface):
+
+    def __init__(self, uPort = 4444):
+        super().__init__(uPort)
+
+    def process(self, vl, vr):
+        packet = struct.pack("<ff", vl, vr)
+        self.sd.sendto(packet, ('localhost', self.port))
+        (reply, remote) = self.sd.recvfrom(1024)
+        (delta, x, y, theta, v, w) = struct.unpack("<ffffff", reply[8:])
+        return (delta, x, y, theta, v, w)
+
+
 
 if __name__ == "__main__":
     # g = GodotArm1D()
     # while True:
     #     print(g.process(0.5))
 
-    g = GodotCartSimple()
+    #g = GodotCartSimple()
+    g = GodotCartTwoWheels()
     while True:
-        print(g.process(10, 0.5))
+        print(g.process(-10, 10))
 

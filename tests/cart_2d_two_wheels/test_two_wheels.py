@@ -23,7 +23,7 @@ class Cart2DRobot(RoboticSystem):
         self.cart = TwoWheelsCart2D(1, 0.15, 0.8, 0.8, 0.25)
 
     def run(self):
-        self.cart.evaluate(self.delta_t, -0.45, 0.5)
+        self.cart.evaluate(self.delta_t, 0.2, 0.2)
         return True
 
     def get_pose(self):

@@ -51,6 +51,7 @@ class Cart2DRobot(RoboticSystem):
                               [['x', 'X'], ['x_target', 'X Target']])
             self.plotter.plot(['t', 'time'],
                               [['y', 'Y'], ['y_target', 'Y Target']])
+            self.plotter.plot(['x', 'X'], [['y', 'Y']])
             self.plotter.show()
             return False
 

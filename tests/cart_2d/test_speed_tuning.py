@@ -19,8 +19,8 @@ plotter = DataPlotter()
 linear_speed_controller = PIDSat(10, 3.5, 0, 5)  # 5 newton
 angular_speed_controller = PIDSat(6, 10, 0, 4)  # 4 newton * metro
 
-v_target = 0
-w_target = 2
+v_target = 6
+w_target = 0
 
 t = 0
 delta_t = 1e-3
