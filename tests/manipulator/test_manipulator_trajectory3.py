@@ -45,7 +45,7 @@ class ManipulatorRobot(RoboticSystem):
         (x, y, a) = self.arm.get_pose()
         self.target_x = 0.1
         self.target_y = 0.1
-        self.target_alpha = math.radians(-45)
+        self.target_alpha = math.radians(-90)
 
         self.trajectory.set_target((x, y, a), (self.target_x, self.target_y, self.target_alpha))
         self.trajectory.arm = self.arm

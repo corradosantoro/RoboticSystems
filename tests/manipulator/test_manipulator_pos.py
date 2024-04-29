@@ -41,9 +41,9 @@ class ManipulatorRobot(RoboticSystem):
 
         self.plotter = DataPlotter()
 
-        # self.theta1 = math.radians(0)
-        # self.theta2 = math.radians(0)
-        # self.theta3 = math.radians(40)
+        #self.theta1 = math.radians(20)
+        #self.theta2 = math.radians(-40)
+        #self.theta3 = math.radians(40)
         (self.theta1, self.theta2, self.theta3) = self.arm.inverse_kinematics(0.2, 0.1, math.radians(-90))
 
     def run(self):

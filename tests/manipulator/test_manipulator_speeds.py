@@ -40,19 +40,19 @@ class ManipulatorRobot(RoboticSystem):
 
     def run(self):
 
-        # wref = self.ramp.evaluate(self.delta_t)
-        # w = self.arm.element_1.w
-        # torque = self.speed_control_1.evaluate(self.delta_t, wref, w)
-
-        # wref = self.ramp.evaluate(self.delta_t)
-        # w = self.arm.element_2.w
-        # torque = self.speed_control_2.evaluate(self.delta_t, wref, w)
+        #wref = self.ramp.evaluate(self.delta_t)
+        #w = self.arm.element_1.w
+        #torque = self.speed_control_1.evaluate(self.delta_t, wref, w)
 
         wref = self.ramp.evaluate(self.delta_t)
-        w = self.arm.element_3.w
-        torque = self.speed_control_3.evaluate(self.delta_t, wref, w)
+        w = self.arm.element_2.w
+        torque = self.speed_control_2.evaluate(self.delta_t, wref, w)
 
-        self.arm.evaluate(self.delta_t, 0, 0, torque)
+        #wref = self.ramp.evaluate(self.delta_t)
+        #w = self.arm.element_3.w
+        #torque = self.speed_control_3.evaluate(self.delta_t, wref, w)
+
+        self.arm.evaluate(self.delta_t, 0, torque, 0)
 
         self.plotter.add('Wref', wref)
         self.plotter.add('W', w)

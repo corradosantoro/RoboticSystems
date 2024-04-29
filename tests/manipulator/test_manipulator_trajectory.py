@@ -43,7 +43,7 @@ class ManipulatorRobot(RoboticSystem):
         self.trajectory = VirtualRobot2D(1, 0.5, 0.5)
 
         (x, y, a) = self.arm.get_pose()
-        self.target_x = 0.1
+        self.target_x = 0.2
         self.target_y = 0.1
         self.target_alpha = math.radians(-90)
 
