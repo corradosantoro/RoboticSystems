@@ -12,13 +12,6 @@ from lib.godot.interface import *
 import math
 import keyboard
 
-# propeller order
-#
-#  3     4
-#
-#  2     1
-#
-
 
 class MultirotorRobot:
 
@@ -46,11 +39,20 @@ class MultirotorRobot:
 
         self.plot = DataPlotter()
 
+
     def run(self):
+        #
+        # propeller order
+        #
+        #  3     4
+        #
+        #  2     1
+        #
         f1 = self.f + self.f_roll - self.f_pitch
         f2 = self.f - self.f_roll - self.f_pitch
         f3 = self.f - self.f_roll + self.f_pitch
         f4 = self.f + self.f_roll + self.f_roll
+
         (self.delta_t, x, y, z, roll, pitch, yaw, vx, vy, vz, w_roll, w_pitch, w_yaw) = self.MR.process(f1, f2, f3, f4)
 
         self.t += self.delta_t
@@ -81,18 +83,24 @@ class MultirotorRobot:
 if __name__ == '__main__':
     robot = MultirotorRobot()
     running = True
-    degrees_increment = 2.0
+    degrees_increment = 1.0
+    space_pressed = False
     while running:
         robot.run()
         if keyboard.is_pressed('space'):
-            # take-off and land
-            if robot.z_target == 0.0:
-                print('Take-off')
-                robot.z_target = 1.0
-            else:
-                print('Land')
-                robot.z_target = 0.0
-        elif keyboard.is_pressed('left'):
+            if not(space_pressed):
+                # take-off and land
+                space_pressed = True
+                if robot.z_target == 0.0:
+                    print('Take-off')
+                    robot.z_target = 1.0
+                else:
+                    print('Land')
+                    robot.z_target = 0.0
+        else:
+            space_pressed = False
+
+        if keyboard.is_pressed('left'):
             print('Left')
             robot.roll_target += math.radians(degrees_increment)
         elif keyboard.is_pressed('right'):
