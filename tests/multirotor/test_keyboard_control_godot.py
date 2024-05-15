@@ -69,12 +69,6 @@ class MultirotorRobot:
         self.w_pitch_target = self.pitch_control.evaluate(self.delta_t, self.pitch_target, pitch)
         self.f_pitch = self.w_pitch_control.evaluate(self.delta_t, self.w_pitch_target, w_pitch)
 
-        # self.plot.add('t', self.t)
-        # self.plot.add('w_roll', w_roll)
-        # self.plot.add('w_roll_target', self.w_roll_target)
-        # self.plot.add('z', z)
-        # self.plot.add('f', self.f)
-
         return True
 
 
@@ -83,34 +77,42 @@ class MultirotorRobot:
 if __name__ == '__main__':
     robot = MultirotorRobot()
     running = True
-    degrees_increment = 1.0
-    space_pressed = False
+    degrees_increment = 2.5
+    key_pressed = False
     while running:
         robot.run()
         if keyboard.is_pressed('space'):
-            if not(space_pressed):
+            if not(key_pressed):
                 # take-off and land
-                space_pressed = True
+                key_pressed = True
                 if robot.z_target == 0.0:
                     print('Take-off')
                     robot.z_target = 1.0
                 else:
                     print('Land')
                     robot.z_target = 0.0
-        else:
-            space_pressed = False
-
-        if keyboard.is_pressed('left'):
-            print('Left')
-            robot.roll_target += math.radians(degrees_increment)
+        elif keyboard.is_pressed('left'):
+            if not(key_pressed):
+                key_pressed = True
+                print('Left')
+                robot.roll_target += math.radians(degrees_increment)
         elif keyboard.is_pressed('right'):
-            print('Right')
-            robot.roll_target -= math.radians(degrees_increment)
+            if not(key_pressed):
+                key_pressed = True
+                print('Right')
+                robot.roll_target -= math.radians(degrees_increment)
         elif keyboard.is_pressed('down'):
-            print('Down')
-            robot.pitch_target += math.radians(degrees_increment)
+            if not(key_pressed):
+                key_pressed = True
+                print('Down')
+                robot.pitch_target += math.radians(degrees_increment)
         elif keyboard.is_pressed('up'):
-            print('Up')
-            robot.pitch_target -= math.radians(degrees_increment)
+            if not(key_pressed):
+                key_pressed = True
+                print('Up')
+                robot.pitch_target -= math.radians(degrees_increment)
+        else:
+            key_pressed = False
+
 
 
