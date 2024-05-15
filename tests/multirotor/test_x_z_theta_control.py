@@ -42,15 +42,16 @@ class MultirotorRobot(RoboticSystem):
         (x, z, theta) = self.get_pose()
         (vx, vz, omega) = self.get_speed()
 
+        # horizontal control
         vx_target = self.x_control.evaluate(self.delta_t, self.x_target, x)
         theta_target = - self.vx_control.evaluate(self.delta_t, vx_target, vx)
         omega_target = self.theta_control.evaluate(self.delta_t, theta_target, theta)
+        diff = self.omega_control.evaluate(self.delta_t, omega_target, omega)
 
+        # vertical control
         vz_target = self.z_control.evaluate(self.delta_t, self.z_target, z)
-
         f = self.vz_control.evaluate(self.delta_t, vz_target, vz)
 
-        diff = self.omega_control.evaluate(self.delta_t, omega_target, omega)
 
         self.MR.evaluate(self.delta_t, f - diff, f + diff)
 

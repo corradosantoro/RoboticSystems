@@ -65,6 +65,19 @@ class GodotCartTwoWheels(GodotInterface):
         return (delta, x, y, theta, v, w)
 
 
+class GodotDrone(GodotInterface):
+
+    def __init__(self, uPort = 4444):
+        super().__init__(uPort)
+
+    def process(self, f1, f2, f3, f4):
+        packet = struct.pack("<ffff", f1,f2,f3,f4)
+        self.sd.sendto(packet, ('localhost', self.port))
+        (reply, remote) = self.sd.recvfrom(1024)
+        (delta, x, y, z, roll, pitch, yaw, vx, vy, vz, w_roll, w_pitch, w_yaw) = struct.unpack("<fffffffffffff", reply[8:])
+        return (delta, x, y, z, roll, pitch, yaw, vx, vy, vz, w_roll, w_pitch, w_yaw)
+
+
 
 if __name__ == "__main__":
     # g = GodotArm1D()
@@ -72,7 +85,10 @@ if __name__ == "__main__":
     #     print(g.process(0.5))
 
     #g = GodotCartSimple()
-    g = GodotCartTwoWheels()
+    #g = GodotCartTwoWheels()
+    #while True:
+    #    print(g.process(6, 10))
+    g = GodotDrone()
     while True:
-        print(g.process(6, 10))
+        print(g.process(2.5, 2.5, 2.5, 2.5))
 
