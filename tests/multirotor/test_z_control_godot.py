@@ -20,6 +20,7 @@ class MultirotorRobot:
         self.z_target = 1.0
 
         self.f = 0
+        self.t = 0
 
         self.plot = DataPlotter()
 

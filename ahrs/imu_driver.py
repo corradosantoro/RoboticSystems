@@ -29,6 +29,6 @@ if __name__ == "__main__":
     drv.open()
 
     while True:
-        print(drv.sample()[0])
+        print(drv.sample()[0:3])
         time.sleep(0.1)
         

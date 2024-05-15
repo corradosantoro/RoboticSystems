@@ -65,6 +65,21 @@ def main():
     r = 0 # roll
     p = 0 # pitch
     y = 0 # yaw
+    
+    gx = 0
+    gy = 0
+    gz = 0
+    for i in range(0,1000):
+         imu_data = imu.sample()
+         gx += imu_data[3]
+         gy += imu_data[4]
+         gz += imu_data[5]
+         
+    offset_x = gx / 1000.0
+    offset_y = gy / 1000.0
+    offset_z = gz / 1000.0
+    
+    print('Gyro offsets ', [offset_x, offset_y, offset_z] )
 
     glMatrixMode(GL_MODELVIEW)
     while True:
@@ -76,9 +91,9 @@ def main():
         imu_data = imu.sample()
         t = time.time()
         delta_t = t - last_t
-        r = r + delta_t * imu_data[3]
-        p = p + delta_t * imu_data[4]
-        y = y + delta_t * imu_data[5]
+        r = r + delta_t * (imu_data[3] - offset_x)
+        p = p + delta_t * (imu_data[4] - offset_y)
+        y = y + delta_t * (imu_data[5] - offset_z)
         last_t = t
 
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)

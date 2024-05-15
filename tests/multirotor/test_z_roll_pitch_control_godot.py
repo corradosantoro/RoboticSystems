@@ -11,12 +11,6 @@ from lib.godot.interface import *
 
 import math
 
-# propeller order
-#
-#  3     4
-#
-#  2     1
-#
 
 
 class MultirotorRobot:
@@ -34,8 +28,8 @@ class MultirotorRobot:
         self.pitch_control = PIDSat(1.0, 0.0, 0.0, 2, True) # max 2 rad/s
 
         self.z_target = 1.0
-        self.roll_target = math.radians(-2.5)
-        self.pitch_target = 0.0
+        self.roll_target = 0.0 #math.radians(2.5)
+        self.pitch_target = 0.0 #math.radians(5)
 
         self.f = 0
         self.f_roll = 0
@@ -46,6 +40,12 @@ class MultirotorRobot:
         self.plot = DataPlotter()
 
     def run(self):
+        # propeller order
+        #
+        #  3     4
+        #
+        #  2     1
+        #
         f1 = self.f + self.f_roll - self.f_pitch
         f2 = self.f - self.f_roll - self.f_pitch
         f3 = self.f - self.f_roll + self.f_pitch
