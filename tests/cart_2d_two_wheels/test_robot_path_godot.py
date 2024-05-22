@@ -29,8 +29,12 @@ class Cart2DRobot(threading.Thread):
         self.t = 0
         self.cart = GodotCartTwoWheels()
 
+        # KP_linear, v_max, KP_heading, w_max
         self.polar_controller = Polar2DController(2.5, 2, 2.0, 2)
+
+        # vmax, acc, dec
         self.trajectory = StraightLine2DMotion(0.2, 0.5, 0.5)
+
         self.x = 0
         self.y = 0
         self.theta = 0
@@ -150,7 +154,7 @@ if __name__ == '__main__':
     path.start(cart_robot)
 
     while True:
-        time.sleep(0.001)
+        time.sleep(0.5)
         path.execute()
 
 
