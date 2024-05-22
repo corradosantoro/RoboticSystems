@@ -102,7 +102,7 @@ mesh = SubResource("BoxMesh_msus4")
 shape = SubResource("ConvexPolygonShape3D_4osb2")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.999586, -0.0138976, 0.0251778, -0.00220186, 0.835929, 0.548833, -0.0286743, -0.548661, 0.835553, -0.00823641, 1.35612, 2.39591)
+transform = Transform3D(0.999586, -0.0138976, 0.0251778, -0.0195653, 0.31302, 0.949545, -0.0210776, -0.949645, 0.312619, 0.212265, 2.37032, 1.65204)
 fov = 100.0
 
 [node name="Robot" parent="." instance=ExtResource("1_fer1o")]

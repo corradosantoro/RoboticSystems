@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1716200678
+::res://::1716217862
 Body.gd::GDScript::-1::1712934366::0::1::::<>RigidBody3D<>::
 drone.gd::GDScript::-1::1715724003::0::1::::<>RigidBody3D<>::
 export_presets.cfg::TextFile::-1::1715671157::0::1::::<><>::
@@ -7,7 +7,7 @@ icon.svg::CompressedTexture2D::8720091622803620391::1710514919::1715671687::1:::
 LeftWheel.gd::GDScript::-1::1712595013::0::1::::<>RigidBody3D<>::
 RightWheel.gd::GDScript::-1::1712595013::0::1::::<>RigidBody3D<>::
 robot.gd::GDScript::-1::1715955988::0::1::::<>Node3D<>::
-robot.tscn::PackedScene::1396578047692315995::1715963381::0::1::::<><>::res://robot.gd<>uid://cs6rn58igsbj::::res://assets/3dr_arducopter_quad_x.obj<>res://drone.gd
-world.tscn::PackedScene::2705377186659808285::1715963380::0::1::::<><>::uid://t5ro3qm5fttb::::res://robot.tscn
+robot.tscn::PackedScene::1396578047692315995::1716201930::0::1::::<><>::res://robot.gd<>uid://cs6rn58igsbj::::res://assets/3dr_arducopter_quad_x.obj<>res://drone.gd
+world.tscn::PackedScene::2705377186659808285::1716201930::0::1::::<><>::uid://t5ro3qm5fttb::::res://robot.tscn
 ::res://assets/::1715674858
 3dr_arducopter_quad_x.obj::Mesh::179449802779285059::1715672479::1715672484::1::::<><>::

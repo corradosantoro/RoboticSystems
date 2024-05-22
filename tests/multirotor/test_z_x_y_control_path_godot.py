@@ -10,7 +10,6 @@ from lib.data.plot import DataPlotter
 from lib.godot.interface import *
 
 import math
-import pygame
 
 
 class MultirotorRobot:
@@ -65,6 +64,9 @@ class MultirotorRobot:
         f3 = self.f - self.f_roll + self.f_pitch
         f4 = self.f + self.f_roll + self.f_pitch
         (self.delta_t, x, y, z, roll, pitch, yaw, vx, vy, vz, w_roll, w_pitch, w_yaw) = self.MR.process(f1, f2, f3, f4)
+        self.x = x
+        self.y = y
+        self.z = z
 
         self.t += self.delta_t
 
@@ -103,42 +105,61 @@ class MultirotorRobot:
         return True
 
 
-class Joy:
+class Path:
 
     def __init__(self):
-        pygame.init()
-        self.j = pygame.joystick.Joystick(0)
-        self.j.init()
+        pass
 
+    def set_path(self, p):
+        self.path = p
+        
+    def start(self, robot):
+        self.path_index = 0
+        self.robot = robot
+        (xt,yt,zt) = self.path[self.path_index]
+        self.robot.x_target = xt
+        self.robot.y_target = yt
+        self.robot.z_target = zt
+        print(xt,yt,zt)
+        self.end_of_path = False
 
-    def rescale(self, v):
-        if v > 0.5:
-            return 1
-        elif v < -0.5:
-            return -1
-        else:
-            return 0
-
-
-    def remote(self, robot):
-        pygame.event.pump()
-        left_h = self.rescale(self.j.get_axis(0))
-        left_v = self.rescale(self.j.get_axis(1))
-
-        right_h = self.rescale(self.j.get_axis(3))
-        right_v = self.rescale(self.j.get_axis(4))
-
-        robot.z_target += (-left_v) * 0.01
-        robot.x_target += right_v * 0.01
-        robot.y_target += right_h * 0.01
+    def execute(self):
+        if self.end_of_path:
+            return
+        (xt,yt,zt) = self.path[self.path_index]
+        x = self.robot.x
+        y = self.robot.y
+        z = self.robot.z
+        dx = x - xt
+        dy = y - yt
+        dz = z - zt
+        dist = math.sqrt(dx*dx + dy*dy + dz*dz)
+        print(x,y,z)
+        if (dist < 0.1):
+            self.path_index += 1
+            if (self.path_index < len(self.path)):
+                (xt,yt,zt) = self.path[self.path_index]
+                self.robot.x_target = xt
+                self.robot.y_target = yt
+                self.robot.z_target = zt
+                print(xt,yt,zt)
+            else:
+                self.end_of_path = True
 
 
 if __name__ == '__main__':
     robot = MultirotorRobot()
-    j = Joy()
+    p = Path()
+    p.set_path([ (0, 0 ,1.5),
+                 (1.0,1.0, 1.5),
+                 (-1.0,1.0, 1.5),
+                 (-1.0,-1.0, 1.5),
+                 (1.0,-1.0, 1.5),
+                 (0.0, 0.0, 1.5),
+                 (0,0,0)])
+    p.start(robot)
     while robot.run():
-        j.remote(robot)
-        print(robot.x_target, ' ', robot.y_target, ' ', robot.z_target)
+        p.execute()
 
 
 
