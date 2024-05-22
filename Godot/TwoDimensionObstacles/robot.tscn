@@ -1,0 +1,190 @@
+[gd_scene load_steps=26 format=3 uid="uid://t5ro3qm5fttb"]
+
+[ext_resource type="Script" path="res://robot.gd" id="1_a2l0e"]
+[ext_resource type="Script" path="res://Body.gd" id="2_ajpf0"]
+[ext_resource type="Script" path="res://RightWheel.gd" id="2_ymk7f"]
+[ext_resource type="Script" path="res://LeftWheel.gd" id="3_utiwy"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_wqag1"]
+radius = 0.02
+height = 0.04
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_bgv6q"]
+points = PackedVector3Array(-0.00380654, -0.0203175, -0.00126885, 0.00381052, 0.0203175, 0.00126885, 0.00381052, 0.0203175, -0.00126885, -0.0203175, 0.00380654, -0.00126885, -0.00380654, -0.00190128, 0.0203175, 0.0171394, -0.00380654, -0.0114276, -0.00634821, 0.00190128, -0.019681, 0.0171394, -0.00380654, 0.0114276, -0.00317411, 0.0139653, 0.0152381, 0.0146017, 0.0126964, -0.00825347, -0.016503, -0.0126964, -0.00126885, -0.00825347, 0.0184122, -0.0057118, 0.0101548, -0.0171394, 0.00634821, 0.00317411, -0.0152381, -0.0139653, 0.0133328, 0.0101587, 0.0126964, -0.0126964, -0.00825347, 0.0146017, -0.0152341, 0.00888591, 0.0114276, 0.00634821, 0.00761706, -0.0184122, -0.01206, -0.0101587, -0.0139653, 0.00317411, -0.0139653, 0.0152381, 0.0203175, 0.00380654, 0.00126487, 0.0171394, -0.0114276, -0.00380654, -0.0126964, 0.00825347, -0.0146017, 0.00824949, 0.00190128, 0.0190446, 0.00444295, -0.00507936, -0.019681, 0.00126885, 0.0165069, -0.0126964, -0.0057118, -0.0184122, 0.00825347, -0.01206, 0.0165069, 0.00444295, -0.0190446, -0.00380654, 0.00761706, 0.0133328, 0.0152381, 0.0057118, -0.0171394, -0.00380654, -0.0114276, 0.00824949, -0.0184122, -0.0057118)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cnhjn"]
+top_radius = 0.15
+bottom_radius = 0.15
+height = 0.2
+
+[sub_resource type="Skin" id="Skin_npq7f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ihxii"]
+albedo_color = Color(0.396078, 1, 1, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_bbo8d"]
+height = 0.2
+radius = 0.15
+
+[sub_resource type="PrismMesh" id="PrismMesh_xc0f6"]
+size = Vector3(0.04, 0.04, 0.04)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nmxmq"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_vmpkm"]
+points = PackedVector3Array(0.0199992, -0.02, -0.02, 0.000585677, 0.0188286, 0.0188286, -0.000586436, 0.0188271, 0.0188271, 0.0199992, -0.02, 0.02, -0.02, -0.02, 0.02, -0.02, -0.02, -0.02, 0.000585677, 0.0188286, -0.0188286, -0.000586436, 0.0188271, -0.0188271)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_mrof4"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_q5fg0"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.01
+
+[sub_resource type="Skin" id="Skin_ucadx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_osarf"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_cia7q"]
+margin = 0.0
+height = 0.0104789
+radius = 0.0514641
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_4a1f4"]
+top_radius = 0.005
+bottom_radius = 0.005
+height = 0.005
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_7jwkj"]
+points = PackedVector3Array(0.00095263, 0.0025, 0.00507936, -0.00095263, -0.00257936, -0.00507936, -0.00158705, -0.00257936, -0.00492026, -0.00095263, 0.0025, -0.00507936, 0.00507936, -0.00257936, -0.000951635, -0.00428484, -0.00257936, 0.003015, -0.00507936, 0.0025, -0.000951635, 0.00428484, 0.0025, -0.003015, 0.003015, -0.00257936, 0.00428484, 0.00460206, 0.0025, 0.00238058, -0.00428484, -0.00257936, -0.003015, -0.00349132, 0.0025, 0.00380952, -0.00095263, -0.00257936, 0.00507936, 0.003015, -0.00257936, -0.00428484, -0.003015, 0.0025, -0.00428484, 0.00158705, 0.0025, -0.00492026, -0.00507936, -0.00257936, 0.000951635, -0.00492026, 0.0025, 0.00158705, 0.00492026, -0.00257936, 0.00158606, 0.00507936, 0.0025, -0.000951635, 0.003015, 0.0025, 0.00428484, -0.00158705, 0.0025, 0.00492026, -0.003015, -0.00257936, 0.00428484, 0.000951635, -0.00257936, -0.00507936, -0.00428484, 0.0025, -0.003015, 0.00428484, -0.00257936, -0.003015, -0.00492026, -0.00257936, -0.00158705, 0.00158705, -0.00257936, 0.00491927, 0.00428484, -0.00257936, 0.00301401, 0.00507936, 0.0025, 0.000950641, 0.003015, 0.0025, -0.00428484, -0.003015, -0.00257936, -0.00428484)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hg76u"]
+
+[sub_resource type="Skin" id="Skin_eksqu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4hteb"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_5u5lk"]
+margin = 0.0
+height = 0.01
+radius = 0.051
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ubexx"]
+points = PackedVector3Array(0.00095263, 0.0025, 0.00507936, -0.00095263, -0.00257936, -0.00507936, -0.00158705, -0.00257936, -0.00492026, -0.00095263, 0.0025, -0.00507936, 0.00507936, -0.00257936, -0.000951635, -0.00428484, -0.00257936, 0.003015, -0.00507936, 0.0025, -0.000951635, 0.00428484, 0.0025, -0.003015, 0.003015, -0.00257936, 0.00428484, 0.00460206, 0.0025, 0.00238058, -0.00428484, -0.00257936, -0.003015, -0.00349132, 0.0025, 0.00380952, -0.00095263, -0.00257936, 0.00507936, 0.003015, -0.00257936, -0.00428484, -0.003015, 0.0025, -0.00428484, 0.00158705, 0.0025, -0.00492026, -0.00507936, -0.00257936, 0.000951635, -0.00492026, 0.0025, 0.00158705, 0.00492026, -0.00257936, 0.00158606, 0.00507936, 0.0025, -0.000951635, 0.003015, 0.0025, 0.00428484, -0.00158705, 0.0025, 0.00492026, -0.003015, -0.00257936, 0.00428484, 0.000951635, -0.00257936, -0.00507936, -0.00428484, 0.0025, -0.003015, 0.00428484, -0.00257936, -0.003015, -0.00492026, -0.00257936, -0.00158705, 0.00158705, -0.00257936, 0.00491927, 0.00428484, -0.00257936, 0.00301401, 0.00507936, 0.0025, 0.000950641, 0.003015, 0.0025, -0.00428484, -0.003015, -0.00257936, -0.00428484)
+
+[node name="Robot" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.148837, 0)
+script = ExtResource("1_a2l0e")
+
+[node name="ConeTwistJoint3D" type="ConeTwistJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, -0.127, 0)
+node_a = NodePath("../Body")
+node_b = NodePath("../Uniball1")
+
+[node name="Uniball1" type="RigidBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Uniball1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, -0.129, 0)
+mesh = SubResource("SphereMesh_wqag1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Uniball1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.12, -0.129, 0)
+shape = SubResource("ConvexPolygonShape3D_bgv6q")
+
+[node name="Body" type="RigidBody3D" parent="."]
+script = ExtResource("2_ajpf0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
+mesh = SubResource("CylinderMesh_cnhjn")
+skin = SubResource("Skin_npq7f")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ihxii")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
+shape = SubResource("CylinderShape3D_bbo8d")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 0.111, 0.1, 0)
+mesh = SubResource("PrismMesh_xc0f6")
+surface_material_override/0 = SubResource("StandardMaterial3D_nmxmq")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Body"]
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 0.111017, 0.1, 0)
+shape = SubResource("ConvexPolygonShape3D_vmpkm")
+
+[node name="RightWheel" type="RigidBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_mrof4")
+script = ExtResource("2_ymk7f")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RightWheel"]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, -0.1, 0.16)
+mesh = SubResource("CylinderMesh_q5fg0")
+skin = SubResource("Skin_ucadx")
+surface_material_override/0 = SubResource("StandardMaterial3D_osarf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RightWheel"]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, -0.1, 0.16)
+shape = SubResource("CylinderShape3D_cia7q")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="RightWheel"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.0625947, 0.167271)
+mesh = SubResource("CylinderMesh_4a1f4")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="RightWheel"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.0625947, 0.167271)
+shape = SubResource("ConvexPolygonShape3D_7jwkj")
+
+[node name="LeftWheel" type="RigidBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_hg76u")
+script = ExtResource("3_utiwy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LeftWheel"]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, -0.1, -0.16)
+mesh = SubResource("CylinderMesh_q5fg0")
+skin = SubResource("Skin_eksqu")
+surface_material_override/0 = SubResource("StandardMaterial3D_4hteb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LeftWheel"]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, -0.1, -0.16)
+shape = SubResource("CylinderShape3D_5u5lk")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="LeftWheel"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.0625947, -0.166653)
+mesh = SubResource("CylinderMesh_4a1f4")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="LeftWheel"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.0625947, -0.166653)
+shape = SubResource("ConvexPolygonShape3D_ubexx")
+
+[node name="LeftMotor" type="HingeJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, -0.16)
+node_a = NodePath("../Body")
+node_b = NodePath("../LeftWheel")
+params/bias = 0.31
+motor/target_velocity = 12.5664
+
+[node name="RightMotor" type="HingeJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0.16)
+node_a = NodePath("../Body")
+node_b = NodePath("../RightWheel")
+motor/target_velocity = 12.5664
+
+[node name="Uniball2" type="RigidBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Uniball2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12, -0.127, 0)
+mesh = SubResource("SphereMesh_wqag1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Uniball2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12, -0.127, 0)
+shape = SubResource("ConvexPolygonShape3D_bgv6q")
+
+[node name="ConeTwistJoint3D2" type="ConeTwistJoint3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12, -0.127, 0)
+node_a = NodePath("../Body")
+node_b = NodePath("../Uniball2")
