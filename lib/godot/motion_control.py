@@ -41,6 +41,7 @@ class GotoPoint(MotionCommand):
         self.trajectory = StraightLine2DMotion(0.2, 0.5, 0.5)
 
     def start(self, target, robot):
+        print("Goto point ", target)
         self.__target_got = False
         (self.x, self.y) = target
         self.robot = robot
@@ -71,6 +72,7 @@ class RotateTo(MotionCommand):
         self.rotation_controller = PIDSat(2.5, 0, 0.0, 2)  # 2 rad/sec max
 
     def start(self, target, robot):
+        print("Rotate to ", target)
         self.__target_got = False
         self.angle = math.radians(target)
         self.robot = robot
@@ -92,6 +94,7 @@ class RotateTo(MotionCommand):
 class HeadingTo(RotateTo):
 
     def start(self, target, robot):
+        print("Heading to ", target)
         self.__target_got = False
         (x, y) = target
         (xr, yr, _) = robot.get_pose()
@@ -198,6 +201,9 @@ class Path:
         (command, target) = self.path[self.path_index]
         command.start(target, self.robot)
         self.end_of_path = False
+
+    def is_running(self):
+        return not(self.end_of_path)
 
     def execute(self):
         if self.end_of_path:
