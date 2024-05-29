@@ -9,7 +9,7 @@ sys.path.append(f"{CURRENT_POSITION}/../../")
 from lib.godot.interface import *
 from lib.controllers.standard import PIDSat
 from lib.controllers.control2d import Polar2DController, StraightLine2DMotion
-from lib.data.plot import DataPlotter
+from lib.data.geometry import *
 
 import os
 import threading
@@ -63,6 +63,40 @@ class GotoPoint(MotionCommand):
     def target(self):
         return self.__target_got
 
+
+class RotateTo(MotionCommand):
+
+    def __init__(self):
+        # KP_linear, v_max, KP_heading, w_max
+        self.rotation_controller = PIDSat(2.5, 0, 0.0, 2)  # 2 rad/sec max
+
+    def start(self, target, robot):
+        self.__target_got = False
+        self.angle = math.radians(target)
+        self.robot = robot
+        self.robot.set_controller(self)
+
+    def execute(self, delta_t, x, y, theta, v, w):
+        err = normalize_angle(self.angle - theta)
+        if (abs(err) < math.radians(2)):
+            self.__target_got = True
+            return (0.0, 0.0)
+        else:
+            w_target = self.rotation_controller.evaluate_error(delta_t, err)
+            return (0, w_target)
+
+    def target(self):
+        return self.__target_got
+
+
+class HeadingTo(RotateTo):
+
+    def start(self, target, robot):
+        self.__target_got = False
+        (x, y) = target
+        (xr, yr, _) = robot.get_pose()
+        angle = math.atan2(y - yr, x - xr)
+        super().start(math.degrees(angle), robot)
 
 
 class Cart2DRobot(threading.Thread):
@@ -185,13 +219,25 @@ if __name__ == '__main__':
     cart_robot.start()
 
     goto = GotoPoint()
+    rotate = RotateTo()
+    heading = HeadingTo()
 
     path = Path()
-    path.set_path( [ (goto, (1.5, 1.5)),
+    path.set_path( [ (rotate, 45),
+                     (goto, (1.5, 1.5)),
+
+                     (heading, (1.5, -1.5)),
                      (goto, (1.5, -1.5)),
+
+                     (heading, (-1.5, -1.5)),
                      (goto, (-1.5, -1.5)),
+
+                     (heading, (-1.5, 1.5)),
                      (goto, (-1.5, 1.5)),
+
+                     (heading, (0,0)),
                      (goto, (0,0)) ] )
+
     path.start(cart_robot)
 
     while True:
