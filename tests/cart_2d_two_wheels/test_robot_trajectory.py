@@ -3,21 +3,26 @@
 #
 
 import sys
-sys.path.insert(0, '../../lib')
+from pathlib import Path
+import math
 
-from models.cart2d import *
-from models.robot import *
-from controllers.standard import *
-from controllers.control2d import *
-from gui.gui_2d import *
-from data.plot import *
+CURRENT_POSITION = Path(__file__).parent
+sys.path.append(f"{CURRENT_POSITION}/../../")
+
+from lib.models.cart2d import TwoWheelsCart2DEncodersOdometry
+from lib.models.robot import RoboticSystem
+from lib.controllers.standard import PIDSat
+from lib.controllers.control2d import Polar2DController, StraightLine2DMotion
+from lib.gui.gui_2d import CartWindow
+from lib.data.plot import DataPlotter
 
 from PyQt5.QtWidgets import QApplication
+
 
 class Cart2DRobot(RoboticSystem):
 
     def __init__(self):
-        super().__init__(1e-3) # delta_t = 1e-3
+        super().__init__(1e-3)  # delta_t = 1e-3
         # Mass = 20kg
         # radius = 15cm
         # friction = 0.8
@@ -26,16 +31,16 @@ class Cart2DRobot(RoboticSystem):
         # Encoder resolution = 4000 ticks/revolution
         self.cart = TwoWheelsCart2DEncodersOdometry(20, 0.15, 0.8, 0.8,
                                                     0.025, 0.025, 0.2,
-                                                    0.02, 0.02, 0.24, 2*math.pi/4000.0)
+                                                    0.02, 0.02, 0.24, 2 * math.pi / 4000.0)
 
         # 5 Nm of max torque, antiwindup
         self.left_controller = PIDSat(8.0, 3.0, 0.0, 5, True)
         self.right_controller = PIDSat(8.0, 3.0, 0.0, 5, True)
 
-        self.polar_controller = Polar2DController(2.5, 2, 2.0 , 2)
+        self.polar_controller = Polar2DController(2.5, 2, 2.0, 2)
         self.trajectory = StraightLine2DMotion(0.2, 0.5, 0.5)
-        (x,y,_) = self.get_pose()
-        self.trajectory.start_motion( (x,y), (0.5, 0.2) )
+        (x, y, _) = self.get_pose()
+        self.trajectory.start_motion((x, y), (0.5, 0.2))
 
         self.plotter = DataPlotter()
 
@@ -56,7 +61,7 @@ class Cart2DRobot(RoboticSystem):
         # robot model
         self.cart.evaluate(self.delta_t, Tleft, Tright)
 
-        (x,y,_) = self.get_pose()
+        (x, y, _) = self.get_pose()
         self.plotter.add('t', self.t)
         self.plotter.add('x', x)
         self.plotter.add('y', y)
@@ -64,10 +69,10 @@ class Cart2DRobot(RoboticSystem):
         self.plotter.add('y_target', y_target)
 
         if self.t > 10:
-            self.plotter.plot ( [ 't', 'time' ],
-                                [ [ 'x', 'X'], [ 'x_target', 'X Target'] ])
-            self.plotter.plot ( [ 't', 'time' ],
-                                [ [ 'y', 'Y'], [ 'y_target', 'Y Target'] ])
+            self.plotter.plot(['t', 'time'],
+                              [['x', 'X'], ['x_target', 'X Target']])
+            self.plotter.plot(['t', 'time'],
+                              [['y', 'Y'], ['y_target', 'Y Target']])
             self.plotter.show()
             return False
 
