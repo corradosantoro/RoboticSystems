@@ -85,6 +85,8 @@ class NF1Planner:
         self.__reset()
         self.__make_map(xe, ye, 0)
         self.print_map()
+
+        # path finding
         path = [ (xe, ye) ]
         mark = self.map [ (xe, ye) ]
         self.map[ (xe, ye) ] = '**'
@@ -114,6 +116,7 @@ class NF1Planner:
             #self.print_map()
             (xe, ye) = selected_cell
         path.reverse()
+        print(path)
         path = list(map(lambda p : self.__cell_to_point(p[0],p[1]), path))
         path.pop(0)
         return path

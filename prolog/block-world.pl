@@ -12,11 +12,11 @@
     assert(table(cube)),
     assert(table(cylinder)),
     assert(table(prism)),
-    assert(table(ring)).
+    assert(upon(ring, cylinder)).
 
 % object X is free
 free(X) :- object(X), \+upon(_,X).
 
 % put object X upon object Y
-put(X, Y) :- free(X), free(Y), table(X), retract(table(X)), assert(upon(Y, X));
-put(X, Y) :- free(X), free(Y), upon(X, Z), retract(upon(X, Z)), assert(upon(Y, X)).
+put(X, Y) :- free(X), free(Y), table(X), retract(table(X)), assert(upon(Y, X)).
+%%put(X, Y) :- free(X), free(Y), upon(X, Z), retract(upon(X, Z)), assert(upon(Y, X)).
