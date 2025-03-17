@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://cr44u8jvxj58y"]
 
-[ext_resource type="Script" path="res://ball_world.gd" id="1_5dbxi"]
+[ext_resource type="Script" uid="uid://dfjqyxwjvpw3u" path="res://ball_world.gd" id="1_5dbxi"]
 [ext_resource type="PackedScene" uid="uid://d1f057ntbgp4c" path="res://Components/DDS/dds.tscn" id="2_0k453"]
-[ext_resource type="Script" path="res://ball.gd" id="2_2fgf6"]
+[ext_resource type="Script" uid="uid://q3gpd7kkidne" path="res://ball.gd" id="2_2fgf6"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_183uj"]
 
