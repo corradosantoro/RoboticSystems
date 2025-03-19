@@ -1,0 +1,11 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1742381275
+ball.gd::GDScript::1181215371659191786::1742381084::0::1::::<>RigidBody2D<><>0<>0<><>::
+ball_world.gd::GDScript/GDScript::7529801242454332300::1742368792::0::1::::<>Node2D<><>0<>0<><>::
+ball_world.tscn::PackedScene::6027716920927875210::1742381194::0::1::::<><><>0<>0<><>::uid://dfjqyxwjvpw3u::::res://ball_world.gd<>uid://d1f057ntbgp4c::::res://Components/DDS/dds.tscn<>uid://q3gpd7kkidne::::res://ball.gd<>uid://bibp1sxjlauj1::::res://reset.gd
+icon.svg::CompressedTexture2D/CompressedTexture2D::5360351409617075391::1742368792::1742368839::1::::<><><>0<>0<>447a8e8cc5f92b52cd76247c06efa92c<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
+reset.gd::GDScript::2950953977458890284::1742381192::0::1::::<>Button<><>0<>0<><>::
+::res://Components/::1742368792
+::res://Components/DDS/::1742368792
+dds.gd::GDScript/GDScript::3267360539998081529::1742368792::0::1::::<>Node2D<><>0<>0<><>::
+dds.tscn::PackedScene/PackedScene::8996067074769278072::1742368792::0::1::::<><><>0<>0<><>::uid://bmsy7lbl674wj::::res://Components/DDS/dds.gd

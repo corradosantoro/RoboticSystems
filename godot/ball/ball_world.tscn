@@ -4,6 +4,16 @@
 [ext_resource type="PackedScene" uid="uid://d1f057ntbgp4c" path="res://Components/DDS/dds.tscn" id="2_0k453"]
 [ext_resource type="Script" uid="uid://q3gpd7kkidne" path="res://ball.gd" id="2_2fgf6"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_kxumw"]
+friction = 0.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_cdytv"]
+radius = 20.0
+height = 40.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ktt8c"]
+size = Vector2(60, 40)
+
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_183uj"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_rl8m5"]
@@ -14,20 +24,22 @@ size = Vector2(2042, 19)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_skej5"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_kxumw"]
-friction = 0.5
-
-[sub_resource type="SphereMesh" id="SphereMesh_cdytv"]
-radius = 20.0
-height = 40.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_56oea"]
-radius = 20.0
-
 [node name="BallWorld" type="Node2D"]
 script = ExtResource("1_5dbxi")
 
 [node name="DDS" parent="." instance=ExtResource("2_0k453")]
+
+[node name="Ball" type="RigidBody2D" parent="."]
+position = Vector2(49, 291)
+physics_material_override = SubResource("PhysicsMaterial_kxumw")
+script = ExtResource("2_2fgf6")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Ball"]
+modulate = Color(1, 0, 0, 1)
+mesh = SubResource("SphereMesh_cdytv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+shape = SubResource("RectangleShape2D_ktt8c")
 
 [node name="RigidBody2D" type="StaticBody2D" parent="."]
 
@@ -49,25 +61,12 @@ shape = SubResource("RectangleShape2D_skej5")
 position = Vector2(2029, 302)
 shape = SubResource("RectangleShape2D_skej5")
 
-[node name="Ball" type="RigidBody2D" parent="RigidBody2D"]
-mass = 2.0
-physics_material_override = SubResource("PhysicsMaterial_kxumw")
-script = ExtResource("2_2fgf6")
-
-[node name="MeshInstance2D" type="MeshInstance2D" parent="RigidBody2D/Ball"]
-modulate = Color(1, 0, 0, 1)
-position = Vector2(45, 291)
-mesh = SubResource("SphereMesh_cdytv")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D/Ball"]
-position = Vector2(45, 291)
-shape = SubResource("CircleShape2D_56oea")
-
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1159.0
 offset_bottom = 486.0
+metadata/_edit_lock_ = true
 
 [node name="Label" type="Label" parent="Control"]
 custom_minimum_size = Vector2(150, 0)

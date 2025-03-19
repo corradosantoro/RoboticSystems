@@ -70,6 +70,9 @@ class DDS(threading.Thread):
         self.remote_port = _remote_port
         super(DDS, self).start()
 
+    def stop(self):
+        self.__running = False
+
 
     def subscribe(self, _varlist):
         data = io.BytesIO()
@@ -108,7 +111,8 @@ class DDS(threading.Thread):
 
 
     def run(self):
-        while True:
+        self.__running = True
+        while self.__running:
             sel = select.select([self.sd],[],[], 0.5)
 
             if sel == []:
@@ -123,6 +127,8 @@ class DDS(threading.Thread):
                 continue
             if data[0] == DDS.COMMAND_PUBLISH:
                 self.__on_remote_publish(data)
+
+        self.sd.close()
 
 
     def __on_remote_publish(self, data):
