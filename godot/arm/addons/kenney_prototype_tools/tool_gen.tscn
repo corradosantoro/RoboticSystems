@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bn4ahbc65y07q"]
+
+[sub_resource type="Resource" id="Resource_kflov"]
+metadata/__load_path__ = "res://tool_generator.gd"
+
+[node name="ToolGen" type="Node"]
+script = SubResource("Resource_kflov")

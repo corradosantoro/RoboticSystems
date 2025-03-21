@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cjyemus4avome"
+path="res://.godot/imported/Waist.obj-9ef5f6a3674f93afb7a3a881cc9ff513.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Waist.obj-9ef5f6a3674f93afb7a3a881cc9ff513.mesh"]
+
+source_file="res://assets/models/Waist.obj"
+dest_files=["res://.godot/imported/Waist.obj-9ef5f6a3674f93afb7a3a881cc9ff513.mesh", "res://.godot/imported/Waist.obj-9ef5f6a3674f93afb7a3a881cc9ff513.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(0.001, 0.001, 0.001)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

@@ -1,0 +1,51 @@
+[gd_scene load_steps=8 format=3 uid="uid://be18r7jsab2rt"]
+
+[ext_resource type="Material" uid="uid://d0gmvf62uyhd0" path="res://addons/kenney_prototype_tools/materials/red/material_01.tres" id="1_r0t8i"]
+[ext_resource type="PackedScene" uid="uid://b4qvt86p6nbss" path="res://objects/robot/robot.tscn" id="2_tay0j"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qtibc"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_d7psf"]
+sky_material = SubResource("ProceduralSkyMaterial_qtibc")
+
+[sub_resource type="Environment" id="Environment_k7rn6"]
+background_mode = 2
+sky = SubResource("Sky_d7psf")
+tonemap_mode = 2
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ii2is"]
+size = Vector2(10, 10)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_vk4kc"]
+data = PackedVector3Array(5, 0, 5, -5, 0, 5, 5, 0, -5, -5, 0, 5, -5, 0, -5, 5, 0, -5)
+
+[node name="Root" type="Node"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.41217, 0.151587, 0)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_k7rn6")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+metadata/_edit_lock_ = true
+
+[node name="Floor" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.096, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+material_override = ExtResource("1_r0t8i")
+mesh = SubResource("PlaneMesh_ii2is")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("ConcavePolygonShape3D_vk4kc")
+
+[node name="Robot" parent="." instance=ExtResource("2_tay0j")]

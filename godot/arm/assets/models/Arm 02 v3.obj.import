@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://b7tgw0vx7n46r"
+path="res://.godot/imported/Arm 02 v3.obj-6f53e2f6606ab36fd666d49623baf2da.mesh"
+
+[deps]
+
+files=["res://.godot/imported/Arm 02 v3.obj-6f53e2f6606ab36fd666d49623baf2da.mesh"]
+
+source_file="res://assets/models/Arm 02 v3.obj"
+dest_files=["res://.godot/imported/Arm 02 v3.obj-6f53e2f6606ab36fd666d49623baf2da.mesh", "res://.godot/imported/Arm 02 v3.obj-6f53e2f6606ab36fd666d49623baf2da.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(0.001, 0.001, 0.001)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false
