@@ -16,6 +16,10 @@ config/features=PackedStringArray("4.4", "Forward Plus")
 boot_splash/image="res://logo.png"
 config/icon="res://icon.svg"
 
+[autoload]
+
+DDS="*res://Components/DDS/dds.gd"
+
 [input]
 
 motor_base_left={
