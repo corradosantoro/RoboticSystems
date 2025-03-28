@@ -15,7 +15,7 @@ var theta2: float = 0
 func _ready():
 	#abilitazione motori
 	$motorBase["motor/enable"] = true
-	$motorArm1["motor/enable"] = true
+	$motorArm1["motor/enable"] = false
 	#settaggio motori
 	$motorBase.set_param(HingeJoint3D.PARAM_MOTOR_TARGET_VELOCITY,0)
 	$motorArm1.set_param(HingeJoint3D.PARAM_MOTOR_TARGET_VELOCITY,0)

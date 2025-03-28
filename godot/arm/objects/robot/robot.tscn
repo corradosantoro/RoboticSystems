@@ -1,14 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://b4qvt86p6nbss"]
+[gd_scene load_steps=12 format=3 uid="uid://b4qvt86p6nbss"]
 
 [ext_resource type="Script" uid="uid://bjpoth1f05sia" path="res://objects/robot/robot.gd" id="1_nqrb4"]
 [ext_resource type="ArrayMesh" uid="uid://cjyemus4avome" path="res://assets/models/Waist.obj" id="1_tsmxy"]
 [ext_resource type="ArrayMesh" uid="uid://csx1xgb6rffur" path="res://assets/models/Base.obj" id="2_l5fd8"]
 [ext_resource type="ArrayMesh" uid="uid://ixp2sbylccv6" path="res://assets/models/Arm 01.obj" id="2_vblfd"]
 [ext_resource type="Script" uid="uid://dy2cx385hb8he" path="res://objects/robot/ArmScript.gd" id="4_473ep"]
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_r4h84"]
-height = 0.0152687
-radius = 0.0193165
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_oecsm"]
 bounce = 1.0
@@ -32,27 +28,9 @@ points = PackedVector3Array(0.0605361, 0.00399608, 0.00327574, 0.0605361, 0, 0.0
 [node name="Robot" type="Node3D"]
 script = ExtResource("1_nqrb4")
 
-[node name="Wrist" type="RigidBody3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -0.012, 0.21, 0)
-mass = 0.5
-script = ExtResource("4_473ep")
-rotation_axis = "Y"
-
-[node name="Arm2" type="RigidBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0056607, 0.119732, -0.000169388)
-mass = 0.5
-script = ExtResource("4_473ep")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Arm2"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.00574977, -0.00525235, 0)
-shape = SubResource("CylinderShape3D_r4h84")
-
-[node name="End" type="MeshInstance3D" parent="Arm2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.006, 0.136, 0)
-
 [node name="Arm1" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00391829, -0.000276096, -0.000124088)
-mass = 5.0
+mass = 10.0
 physics_material_override = SubResource("PhysicsMaterial_oecsm")
 script = ExtResource("4_473ep")
 
@@ -67,7 +45,7 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 
 shape = SubResource("ConvexPolygonShape3D_hwsi1")
 
 [node name="motorArm1" type="HingeJoint3D" parent="."]
-transform = Transform3D(4.37114e-08, 3.82137e-15, -1, 8.74228e-08, -1, 0, -1, -8.74228e-08, -4.37114e-08, 0, -0.000426695, -4.79883e-05)
+transform = Transform3D(4.37114e-08, 6.60023e-15, -1, 1.50996e-07, -1, 2.5411e-21, -1, -1.50996e-07, -4.37114e-08, 0, -0.000426695, -4.79883e-05)
 node_a = NodePath("../Waist")
 node_b = NodePath("../Arm1")
 params/bias = 0.99

@@ -48,3 +48,16 @@ class PI_Controller:
 
         return out
 
+class PID_Controller(PI_Controller):
+
+    def __init__(self, _kp: float, _ki: float, _kd : float, _sat: Optional[float] = None):
+        super().__init__(_kp, _ki, _sat)
+        self.kd = _kd
+        self.D = Derivator()
+
+    def evaluate(self, delta_t: float, _error: float) -> float:
+        out_PI = super().evaluate(delta_t, _error)
+        out_D = self.D.evaluate(delta_t, _error)
+        return out_PI + out_D * self.kd
+
+
