@@ -1,0 +1,48 @@
+[gd_scene load_steps=9 format=3 uid="uid://b2ij6oqg2oqbo"]
+
+[ext_resource type="PackedScene" uid="uid://bivvrxxr1v41p" path="res://Assets/Joint_base.glb" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bc67fmutj0eai" path="res://Assets/Joint_1.glb" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://purdpn0iah75" path="res://Assets/Joint_2.glb" id="5_7mycd"]
+[ext_resource type="Script" uid="uid://qknmbq20cu7f" path="res://Assets/joint_1.gd" id="5_272bh"]
+[ext_resource type="PackedScene" uid="uid://c5sign18rb6rf" path="res://Assets/arm_1.glb" id="5_lquwl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7dm0k"]
+albedo_color = Color(0, 0.657275, 0.521925, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ig7tw"]
+material = SubResource("StandardMaterial3D_7dm0k")
+size = Vector3(4, 0.01, 4)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_7dm0k"]
+points = PackedVector3Array(2.03175, 0.026746, 2.03175, -2.03175, -0.036746, -2.03175, -2.03175, 0.026746, -2.03175, 2.03175, -0.036746, -2.03175, -2.03175, -0.036746, 2.03175, -2.03175, 0.026746, 2.03175, 2.03175, 0.026746, -2.03175, 2.03175, -0.036746, 2.03175)
+
+[node name="Main" type="Node3D"]
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("BoxMesh_ig7tw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("ConvexPolygonShape3D_7dm0k")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.794415, 0.607376, 0, -0.607376, 0.794415, 0.00109351, 1.1009, 1.09935)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.282258, 0.959339, 0, -0.959339, 0.282258, 0, 3.45444, 1.51648)
+
+[node name="Base" type="StaticBody3D" parent="."]
+
+[node name="Joint_base" parent="Base" instance=ExtResource("3_h2yge")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.206492, 0.201647)
+
+[node name="Joint_1" parent="Base/Joint_base" instance=ExtResource("4_1bvp3")]
+transform = Transform3D(-4.37114e-08, 1.31134e-07, 1, 4.37114e-08, -1, 1.31134e-07, 1, 4.37114e-08, 4.37114e-08, -0.000864685, 0.170372, -0.00227436)
+script = ExtResource("5_272bh")
+
+[node name="arm_1" parent="Base/Joint_base/Joint_1" instance=ExtResource("5_lquwl")]
+transform = Transform3D(1, 0, 0, 0, 1.31134e-07, -1, 0, 1, 1.31134e-07, 0.000864685, -0.000514328, 0.0797605)
+
+[node name="Joint_2" parent="Base/Joint_base/Joint_1/arm_1" instance=ExtResource("5_7mycd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.010553, 0.460902, -0.06549)

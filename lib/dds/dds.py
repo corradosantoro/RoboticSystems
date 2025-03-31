@@ -116,7 +116,7 @@ class DDS(threading.Thread):
             sel = select.select([self.sd],[],[], 0.5)
 
             if sel == []:
-                pass
+                continue
 
             p = self.sd.recvfrom(1024)
 
