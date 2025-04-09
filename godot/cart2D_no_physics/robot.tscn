@@ -1,0 +1,55 @@
+[gd_scene load_steps=10 format=3 uid="uid://t5ro3qm5fttb"]
+
+[ext_resource type="Script" uid="uid://ca6i4ssopc0xt" path="res://robot.gd" id="1_a2l0e"]
+[ext_resource type="Script" uid="uid://bt60vv6jd4xma" path="res://Body.gd" id="2_ajpf0"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_cnhjn"]
+top_radius = 0.15
+bottom_radius = 0.15
+height = 0.2
+
+[sub_resource type="Skin" id="Skin_npq7f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ihxii"]
+albedo_color = Color(0.396078, 1, 1, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_bbo8d"]
+height = 0.2
+radius = 0.15
+
+[sub_resource type="PrismMesh" id="PrismMesh_xc0f6"]
+size = Vector3(0.04, 0.04, 0.04)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nmxmq"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_vmpkm"]
+points = PackedVector3Array(0.0199992, -0.02, -0.02, 0.000585677, 0.0188286, 0.0188286, -0.000586436, 0.0188271, 0.0188271, 0.0199992, -0.02, 0.02, -0.02, -0.02, 0.02, -0.02, -0.02, -0.02, 0.000585677, 0.0188286, -0.0188286, -0.000586436, 0.0188271, -0.0188271)
+
+[node name="Robot" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.148837, 0)
+script = ExtResource("1_a2l0e")
+
+[node name="Body" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0366933, 0)
+script = ExtResource("2_ajpf0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
+mesh = SubResource("CylinderMesh_cnhjn")
+skin = SubResource("Skin_npq7f")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_ihxii")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.01, 0)
+shape = SubResource("CylinderShape3D_bbo8d")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(-4.37114e-08, 1, 4.37114e-08, 0, -4.37114e-08, 1, 1, 4.37114e-08, 1.91069e-15, 0.111, 0.1, 0)
+mesh = SubResource("PrismMesh_xc0f6")
+surface_material_override/0 = SubResource("StandardMaterial3D_nmxmq")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Body"]
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 0.111017, 0.1, 0)
+shape = SubResource("ConvexPolygonShape3D_vmpkm")
