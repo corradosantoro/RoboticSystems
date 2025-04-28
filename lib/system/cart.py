@@ -4,6 +4,7 @@
 import math
 
 from lib.system.basic import *
+from lib.utils.geometry import *
 
 class Cart:
     def __init__(self, _mass: float, _friction: float):
@@ -29,6 +30,8 @@ class Cart:
         self.position = new_position
         return (self.position, self.speed)
 
+
+# --------------------------------------------------------------------------
 
 class Cart2D:
 
@@ -79,6 +82,135 @@ class Cart2D:
         :return: A tuple containing linear and angular speed
         """
         return self.v, self.w
+
+
+# --------------------------------------------------------------------------
+
+class TwoWheelsCart2D(Cart2D):
+
+    def __init__(self, _mass: float, _radius: float, _lin_friction: float, _ang_friction: float, _traction_wheelbase: float):
+        """
+        Defines a cylinder robot with the given mass, radius, linear & angular frictions and distance between traction wheels
+        :param _mass: The mass of the cylinder robot, expressed in Kg
+        :param _radius: The radius of the cylinder, expressed in meter
+        :param _lin_friction: The force of linear friction present in the system
+        :param _ang_friction: The force of angular friction present in the system
+        :param _traction_wheelbase: The distance between the traction wheels, expressed in meter
+        """
+        super().__init__(_mass, _radius, _lin_friction, _ang_friction)
+        self.traction_wheelbase: float = _traction_wheelbase
+
+    def evaluate(self, delta_t: float, f_left: float, f_right: float) -> None:
+        """
+        Evaluates the linear speed and angular speed at the given time with both the forces applied on left and on right
+        :param delta_t: The delta time
+        :param f_left: The applied force on left
+        :param f_right: The applied torque on right
+        """
+        f = f_left + f_right
+        t = self.traction_wheelbase * (f_right - f_left)
+        super().evaluate(delta_t, f, t)
+
+
+# --------------------------------------------------------------------------
+
+class TwoWheelsCart2DEncoders(TwoWheelsCart2D):
+
+    def __init__(self, _mass, _radius, _lin_friction, _ang_friction,
+                 _r_traction_left, _r_traction_right, _traction_wheelbase,
+                 _r_encoder_left, _r_encoder_right, _encoder_wheelbase, _encoder_ticks):
+
+        super().__init__(_mass, _radius, _lin_friction, _ang_friction, _traction_wheelbase)
+
+        self.r_traction_left = _r_traction_left
+        self.r_traction_right = _r_traction_right
+
+        self.r_encoder_left = _r_encoder_left
+        self.r_encoder_right = _r_encoder_right
+
+        self.encoder_wheelbase = _encoder_wheelbase
+        self.encoder_resolution = math.pi / _encoder_ticks
+
+
+    def evaluate(self, delta_t, torque_left, torque_right) -> None:
+        # torque to force
+        f_left = torque_left / self.r_traction_left
+        f_right = torque_right / self.r_traction_right
+
+        # dynamic model
+        super().evaluate(delta_t, f_left, f_right)
+
+        # sensing wheels
+        vl = self.v - self.w * self.encoder_wheelbase / 2
+        vr = self.v + self.w * self.encoder_wheelbase / 2
+
+        self.delta_rot_left = int(
+            (vl / self.r_encoder_left) * (delta_t / self.encoder_resolution)) * self.encoder_resolution
+        self.delta_rot_right = int(
+            (vr / self.r_encoder_right) * (delta_t / self.encoder_resolution)) * self.encoder_resolution
+
+
+# --------------------------------------------------------------------------
+
+
+class TwoWheelsCart2DEncodersOdometry(TwoWheelsCart2DEncoders):
+
+    def __init__(self, _mass: float, _radius: float, _lin_friction: float, _ang_friction: float,
+                 _r_traction_left: float, _r_traction_right: float, _traction_wheelbase: float,
+                 _r_encoder_left: float, _r_encoder_right: float, _encoder_wheelbase: float, _encoder_ticks: float):
+        super().__init__(_mass, _radius, _lin_friction, _ang_friction,
+                         _r_traction_left, _r_traction_right, _traction_wheelbase,
+                         _r_encoder_left, _r_encoder_right, _encoder_wheelbase, _encoder_ticks)
+
+        self.x_r: float = 0
+        self.y_r: float = 0
+        self.theta_r: float = 0
+
+        self.vleft: float = 0
+        self.vright: float = 0
+
+    def evaluate(self, delta_t, torque_left, torque_right):
+        # dynamic model
+        super().evaluate(delta_t, torque_left, torque_right)
+
+        # odometry model
+        p_left: float = self.delta_rot_left * self.r_encoder_left
+        p_right: float = self.delta_rot_right * self.r_encoder_right
+
+        self.vleft = p_left / delta_t
+        self.vright = p_right / delta_t
+
+        self.v_r = (self.vleft + self.vright) / 2
+        self.w_r = (self.vright - self.vleft) / self.encoder_wheelbase
+
+        delta_p: float = (p_left + p_right) / 2
+
+        delta_theta: float = (p_right - p_left) / self.encoder_wheelbase
+
+        self.x_r = self.x_r + delta_p * math.cos(self.theta_r + delta_theta / 2)
+        self.y_r = self.y_r + delta_p * math.sin(self.theta_r + delta_theta / 2)
+        self.theta_r = normalize_angle(self.theta_r + delta_theta)
+
+    def get_pose(self) -> (float, float, float):
+        """
+        Returns the current robot's position
+        :return: A tuple containing X, Y coordinate and Theta angle
+        """
+        return self.x_r, self.y_r, self.theta_r
+
+    def get_speed(self) -> (float, float):
+        """
+        Returns the current linear and angular speeds
+        :return: A tuple containing V and W
+        """
+        return self.v_r, self.w_r
+
+    def get_wheel_speed(self) -> (float, float):
+        """
+        Returns the current linear and angular speeds
+        :return: A tuple containing V and W
+        """
+        return self.vleft, self.vright
 
 
 if __name__ == "__main__":
