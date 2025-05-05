@@ -129,7 +129,7 @@ class TwoWheelsCart2DEncoders(TwoWheelsCart2D):
         self.r_encoder_right = _r_encoder_right
 
         self.encoder_wheelbase = _encoder_wheelbase
-        self.encoder_resolution = math.pi / _encoder_ticks
+        self.encoder_resolution = 2 * math.pi / _encoder_ticks
 
 
     def evaluate(self, delta_t, torque_left, torque_right) -> None:
