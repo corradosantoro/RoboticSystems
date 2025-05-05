@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://did66sy0183fg"]
+
+[ext_resource type="PackedScene" uid="uid://ux7g776v3tqy" path="res://cars/DemoCar.tscn" id="1"]
+
+[sub_resource type="StandardMaterial3D" id="1"]
+albedo_color = Color(0.301961, 0.298039, 0.298039, 1)
+
+[sub_resource type="PlaneMesh" id="2"]
+material = SubResource("1")
+size = Vector2(50, 50)
+
+[sub_resource type="ConvexPolygonShape3D" id="3"]
+points = PackedVector3Array(-25.1366, 0.136612, -25.1366, -25.1366, 0.136612, 25.1366, 25.1366, 0.136612, -25.1366, 25.1366, 0.136612, 25.1366)
+
+[node name="TestWorld" type="Node3D"]
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground"]
+shape = SubResource("3")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.694269, 0.719715, 0, -0.719715, 0.694269, 3.27118, 10.2141, 13.7042)
+current = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.468238, 0.883602, 0, -0.883602, 0.468238, 0, 31.0751, 0)
+shadow_enabled = true
+
+[node name="DemoCar" parent="." instance=ExtResource("1")]

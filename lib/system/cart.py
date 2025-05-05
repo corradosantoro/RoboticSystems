@@ -213,6 +213,60 @@ class TwoWheelsCart2DEncodersOdometry(TwoWheelsCart2DEncoders):
         return self.vleft, self.vright
 
 
+# --------------------------------------------------------------------------
+
+class AckermannSteering:
+
+    def __init__(self, _mass: float, _lin_friction: float, _r_traction: float, _lateral_wheelbase: float):
+        """
+        Defines a vehicle ackermann steering robot with the given mass, linear friction, distance between traction and distance between wheels
+        :param _mass: The mass of the cylinder robot, expressed in Kg
+        :param _lin_friction: The force of linear friction present in the system
+        :param _r_traction: The distance between the traction wheels, expressed in meter
+        :param _lateral_wheelbase: The distance between the lateral wheels, expressed in meter
+        """
+        self.M: float = _mass
+        self.b: float = _lin_friction
+        self.r_wheels: float = _r_traction
+        self.l_wb: float = _lateral_wheelbase
+
+        self.v: float = 0
+        self.w: float = 0
+        self.x: float = 0
+        self.y: float = 0
+        self.theta: float = 0
+
+    def evaluate(self, delta_t, torque, steering_angle):
+        _force = torque / self.r_wheels
+        new_v = self.v * (1 - self.b * delta_t / self.M) + delta_t * _force / self.M
+
+        if steering_angle == 0:
+            new_w = 0
+        else:
+            curvature_radius = self.l_wb / math.tan(steering_angle)
+            new_w = new_v / curvature_radius
+
+        self.x = self.x + self.v * delta_t * math.cos(self.theta)
+        self.y = self.y + self.v * delta_t * math.sin(self.theta)
+        self.theta = self.theta + delta_t * self.w
+        self.v = new_v
+        self.w = new_w
+
+    def get_pose(self) -> (float, float, float):
+        """
+        Returns the current robot's position
+        :return: A tuple containing X, Y coordinate and Theta angle
+        """
+        return self.x, self.y, self.theta
+
+    def get_speed(self) -> (float, float):
+        """
+        Returns the current linear and angular speeds
+        :return: A tuple containing V and W
+        """
+        return self.v, self.w
+
+
 if __name__ == "__main__":
     c = Cart(1.0, 0.9)
     f = 1000
