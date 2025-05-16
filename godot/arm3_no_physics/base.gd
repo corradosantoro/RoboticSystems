@@ -7,7 +7,7 @@ func _ready() -> void:
 	DDS.subscribe("theta1")
 	DDS.subscribe("theta2")
 	DDS.subscribe("theta3")
-	
+
 	
 
 func _process(delta: float) -> void:

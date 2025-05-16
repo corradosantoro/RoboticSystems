@@ -70,8 +70,12 @@ class ThreeJointsPlanarArm:
         arg = 1 - atan_den ** 2
         if arg < 0:
             return None, None, None
-        theta2 = math.atan2(- math.sqrt(arg), atan_den)
+        theta2 = math.atan2( math.sqrt(arg), atan_den)
         theta1 = math.atan2(yt, xt) - math.atan2(self.element_2.L * math.sin(theta2),
                                                  self.element_1.L + self.element_2.L * math.cos(theta2))
         theta3 = alpha - theta1 - theta2
+        
         return theta1, theta2, theta3
+        
+        
+        
