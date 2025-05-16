@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b2ij6oqg2oqbo"]
+[gd_scene load_steps=15 format=3 uid="uid://b2ij6oqg2oqbo"]
 
 [ext_resource type="Script" uid="uid://ti75y3ioupnd" path="res://base.gd" id="1_5vw27"]
 [ext_resource type="PackedScene" uid="uid://bivvrxxr1v41p" path="res://Assets/Joint_base.glb" id="3_h2yge"]
@@ -19,6 +19,13 @@ size = Vector3(4, 0.01, 4)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_7dm0k"]
 points = PackedVector3Array(2.03175, 0.026746, 2.03175, -2.03175, -0.036746, -2.03175, -2.03175, 0.026746, -2.03175, 2.03175, -0.036746, -2.03175, -2.03175, -0.036746, 2.03175, -2.03175, 0.026746, 2.03175, 2.03175, 0.026746, -2.03175, 2.03175, -0.036746, 2.03175)
+
+[sub_resource type="SphereMesh" id="SphereMesh_kek77"]
+radius = 0.01
+height = 0.02
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4c57u"]
+albedo_color = Color(1, 0, 0, 1)
 
 [node name="Main" type="Node3D"]
 
@@ -61,4 +68,16 @@ transform = Transform3D(0.999999, 0, -1.23002e-14, 2.4869e-14, 1, 2.4869e-14, 9.
 transform = Transform3D(4.37114e-08, 0.999999, -4.61853e-14, 1.31134e-07, -2.4869e-14, -1, -0.999999, 4.37114e-08, -1.31134e-07, 0.194531, 0.0231488, -0.00485297)
 
 [node name="joint_5" parent="Base/Joint_base/Joint_1/arm_1/Joint_2/joint_3/arm_2/joint_4" instance=ExtResource("10_4c57u")]
-transform = Transform3D(1.91068e-15, 4.37114e-08, 0.999999, 0.999999, -4.37114e-08, 0, 4.37113e-08, 0.999999, -4.37114e-08, -0.00173104, 0.0702076, 0.0478438)
+transform = Transform3D(-3.394e-08, 4.81797e-08, 0.999999, 0.965925, -0.258819, 4.52533e-08, 0.258819, 0.965925, -3.77537e-08, -0.00173107, 0.0702076, 0.0478438)
+
+[node name="M1" type="MeshInstance3D" parent="Base"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.17913, 0, 0.201378)
+visible = false
+mesh = SubResource("SphereMesh_kek77")
+surface_material_override/0 = SubResource("StandardMaterial3D_4c57u")
+
+[node name="M2" type="MeshInstance3D" parent="Base"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.18022, 0, 0.347023)
+visible = false
+mesh = SubResource("SphereMesh_kek77")
+surface_material_override/0 = SubResource("StandardMaterial3D_4c57u")
