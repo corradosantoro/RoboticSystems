@@ -81,3 +81,63 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.18022, 0.156083, 0.347023)
 visible = false
 mesh = SubResource("SphereMesh_kek77")
 surface_material_override/0 = SubResource("StandardMaterial3D_4c57u")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 35.0
+offset_top = 27.0
+offset_right = 99.0
+offset_bottom = 50.0
+size_flags_horizontal = 0
+text = "THETA1:"
+
+[node name="Label2" type="Label" parent="."]
+offset_left = 35.0
+offset_top = 62.0
+offset_right = 99.0
+offset_bottom = 85.0
+size_flags_horizontal = 0
+text = "THETA2:"
+
+[node name="Label3" type="Label" parent="."]
+offset_left = 34.0
+offset_top = 96.0
+offset_right = 98.0
+offset_bottom = 119.0
+size_flags_horizontal = 0
+text = "THETA3:"
+
+[node name="theta1box" type="TextEdit" parent="."]
+custom_minimum_size = Vector2(80, 30)
+offset_left = 105.0
+offset_top = 24.0
+offset_right = 185.0
+offset_bottom = 44.0
+editable = false
+scroll_fit_content_height = true
+scroll_fit_content_width = true
+
+[node name="theta2box" type="TextEdit" parent="."]
+custom_minimum_size = Vector2(80, 30)
+offset_left = 105.0
+offset_top = 58.0
+offset_right = 185.0
+offset_bottom = 88.0
+editable = false
+scroll_fit_content_height = true
+scroll_fit_content_width = true
+
+[node name="theta3box" type="TextEdit" parent="."]
+custom_minimum_size = Vector2(80, 30)
+offset_left = 105.0
+offset_top = 93.0
+offset_right = 185.0
+offset_bottom = 123.0
+editable = false
+scroll_fit_content_height = true
+scroll_fit_content_width = true
+
+[node name="CurrentPose" type="Label" parent="."]
+offset_left = 39.0
+offset_top = 131.0
+offset_right = 399.0
+offset_bottom = 154.0
