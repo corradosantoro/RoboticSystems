@@ -1,4 +1,6 @@
 extends StaticBody3D
+
+@onready var joint_base: Node3D = $Joint_base
 @onready var joint_1: Node3D = $Joint_base/Joint_1
 @onready var joint_3: Node3D = $Joint_base/Joint_1/arm_1/Joint_2/joint_3
 @onready var joint_5: Node3D = $Joint_base/Joint_1/arm_1/Joint_2/joint_3/arm_2/joint_4/joint_5
