@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://t5ro3qm5fttb"]
+
+[ext_resource type="Script" uid="uid://c7uq6oieouf2b" path="res://robot.gd" id="1_a2l0e"]
+[ext_resource type="ArrayMesh" uid="uid://cs6rn58igsbj" path="res://assets/3dr_arducopter_quad_x.obj" id="2_6m5pc"]
+[ext_resource type="Script" uid="uid://dbehyafaxwe5y" path="res://drone.gd" id="2_8ddak"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jifbb"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_3vkig"]
+points = PackedVector3Array(-0.275462, -0.306083, -0.114254, 0.234676, 0.326539, -0.114254, 0.163206, 0.173434, 0.00818244, 0.306083, -0.275462, -0.114254, -0.306083, 0.275462, -0.114254, -0.163206, -0.173434, 0.00818244, 0.0382516, 0.0382516, -0.15, -0.163206, 0.173434, 0.00818244, 0.163206, -0.173434, 0.00818244, 0.326539, 0.234676, -0.114254, -0.326539, -0.234676, -0.114254, 0.234676, -0.326539, -0.114254, -0.234676, 0.326539, -0.114254, -0.0382516, -0.0382516, -0.15, 0.326539, -0.234676, -0.114254, -0.326539, 0.234676, -0.114254, -0.234676, -0.326539, -0.114254, -0.173434, 0.163206, 0.00818244, 0.173434, -0.163206, 0.00818244, -0.214134, 0.297956, -0.12, 0.214134, -0.297956, -0.12, -0.173434, -0.163206, 0.00818244, -0.297956, 0.214134, -0.12, 0.297956, -0.214134, -0.12, 0.173434, 0.163206, 0.00818244, 0.0382516, -0.0382516, -0.15, -0.0382516, 0.0382516, -0.15, 0.214134, 0.297956, -0.12, 0.297956, 0.214134, -0.12, -0.297956, -0.214134, -0.12, -0.214134, -0.297956, -0.12, 0.295918, 0.28569, -0.114254)
+
+[sub_resource type="PrismMesh" id="PrismMesh_ultqs"]
+size = Vector3(0.05, 0.05, 0.01)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_647wu"]
+albedo_color = Color(1, 0, 0, 1)
+
+[node name="Robot" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.148837, 0)
+script = ExtResource("1_a2l0e")
+
+[node name="drone" type="RigidBody3D" parent="."]
+axis_lock_linear_x = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+physics_material_override = SubResource("PhysicsMaterial_jifbb")
+script = ExtResource("2_8ddak")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="drone"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = ExtResource("2_6m5pc")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="drone"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("ConvexPolygonShape3D_3vkig")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="drone"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.156716, -0.00145889)
+mesh = SubResource("PrismMesh_ultqs")
+surface_material_override/0 = SubResource("StandardMaterial3D_647wu")
