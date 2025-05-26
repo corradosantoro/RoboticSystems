@@ -20,10 +20,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.148837, 0)
 script = ExtResource("1_a2l0e")
 
 [node name="drone" type="RigidBody3D" parent="."]
-axis_lock_linear_x = true
-axis_lock_linear_z = true
-axis_lock_angular_x = true
-axis_lock_angular_z = true
 physics_material_override = SubResource("PhysicsMaterial_jifbb")
 script = ExtResource("2_8ddak")
 
