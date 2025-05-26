@@ -46,3 +46,4 @@ func _process(delta: float) -> void:
 	var f3 = DDS.read("f3")
 	var f4 = DDS.read("f4")
 	drone.set_forces(f1,f2,f3,f4)
+	#print(pos.z," ", pos.y)
