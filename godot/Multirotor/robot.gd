@@ -1,6 +1,9 @@
 extends Node3D
 
 var drone
+@onready var label_x: Label = $"../Label_X"
+@onready var label_y: Label = $"../Label_Y"
+@onready var label_z: Label = $"../Label_Z"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,6 +23,9 @@ func _process(delta: float) -> void:
 	var lin_vel = vel[0]
 	var rot_vel = vel[1]
 	
+	label_x.text = "X : %.3f" % [pos.z]
+	label_y.text = "Y : %.3f" % [pos.x]
+	label_z.text = "Z : %.3f" % [pos.y]
 	# positions
 	DDS.publish("X", DDS.DDS_TYPE_FLOAT, pos.z)
 	DDS.publish("Y", DDS.DDS_TYPE_FLOAT, pos.x)

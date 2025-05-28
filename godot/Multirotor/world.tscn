@@ -107,3 +107,23 @@ fov = 100.0
 
 [node name="Robot" parent="." instance=ExtResource("1_fer1o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.214639, 0)
+
+[node name="Label_X" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 20
+text = "X "
+
+[node name="Label_Y" type="Label" parent="."]
+offset_top = 34.0
+offset_right = 40.0
+offset_bottom = 62.0
+theme_override_font_sizes/font_size = 20
+text = "Y"
+
+[node name="Label_Z" type="Label" parent="."]
+offset_top = 69.0
+offset_right = 40.0
+offset_bottom = 97.0
+theme_override_font_sizes/font_size = 20
+text = "Z"
