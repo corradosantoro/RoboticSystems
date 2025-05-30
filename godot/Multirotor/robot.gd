@@ -5,6 +5,8 @@ var drone
 @onready var label_y: Label = $"../Label_Y"
 @onready var label_z: Label = $"../Label_Z"
 
+@onready var started : bool = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#inizializzazione server
@@ -13,8 +15,7 @@ func _ready():
 	DDS.subscribe("f2")
 	DDS.subscribe("f3")
 	DDS.subscribe("f4")
-	
-	
+
 func _process(delta: float) -> void:
 	var pose = drone.get_pose()
 	var vel = drone.get_velocity()
@@ -26,6 +27,7 @@ func _process(delta: float) -> void:
 	label_x.text = "X : %.3f" % [pos.z]
 	label_y.text = "Y : %.3f" % [pos.x]
 	label_z.text = "Z : %.3f" % [pos.y]
+	
 	# positions
 	DDS.publish("X", DDS.DDS_TYPE_FLOAT, pos.z)
 	DDS.publish("Y", DDS.DDS_TYPE_FLOAT, pos.x)

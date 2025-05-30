@@ -1,6 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://besrfxb6do24x"]
+[gd_scene load_steps=15 format=3 uid="uid://besrfxb6do24x"]
 
 [ext_resource type="PackedScene" uid="uid://t5ro3qm5fttb" path="res://robot.tscn" id="1_fer1o"]
+[ext_resource type="Script" uid="uid://blfon3x6pf5fc" path="res://reset_button.gd" id="2_fj7yv"]
+[ext_resource type="Script" uid="uid://b8r4t0mvm887h" path="res://start_button.gd" id="3_tlwt5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ykxtl"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -127,3 +129,21 @@ offset_right = 40.0
 offset_bottom = 97.0
 theme_override_font_sizes/font_size = 20
 text = "Z"
+
+[node name="ResetButton" type="Button" parent="."]
+custom_minimum_size = Vector2(100, 50)
+offset_left = 3.0
+offset_top = 114.0
+offset_right = 103.0
+offset_bottom = 164.0
+text = "Reset"
+script = ExtResource("2_fj7yv")
+
+[node name="StartButton" type="Button" parent="."]
+custom_minimum_size = Vector2(100, 60)
+offset_left = 5.0
+offset_top = 181.0
+offset_right = 105.0
+offset_bottom = 241.0
+text = "Start"
+script = ExtResource("3_tlwt5")
