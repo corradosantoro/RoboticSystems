@@ -50,6 +50,7 @@ class DDS(threading.Thread):
     DDS_TYPE_UNKNOWN = 0
     DDS_TYPE_INT = 1
     DDS_TYPE_FLOAT = 2
+    DDS_TYPE_BLOB = 3
 
     COMMAND_KEEP_ALIVE = 0x80
     COMMAND_SUBSCRIBE = 0x81
@@ -58,7 +59,7 @@ class DDS(threading.Thread):
 
     def __init__(self, uPort = None):
         super(DDS, self).__init__()
-        self.setDaemon(False)
+        self.setDaemon(True)
         self.variables = {}
         self.sd = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         if uPort is not None:
@@ -144,6 +145,7 @@ class DDS(threading.Thread):
             case DDS.DDS_TYPE_FLOAT:
                 value = struct.unpack("<f", data[l+3:l+7])
                 #print(name, value)
+
             case DDS.DDS_TYPE_INT:
                 value = struct.unpack("<i", data[l+3:l+7])
 

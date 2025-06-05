@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b2ij6oqg2oqbo"]
+[gd_scene load_steps=21 format=3 uid="uid://b2ij6oqg2oqbo"]
 
 [ext_resource type="Script" uid="uid://ti75y3ioupnd" path="res://base.gd" id="1_5vw27"]
 [ext_resource type="PackedScene" uid="uid://bivvrxxr1v41p" path="res://Assets/Joint_base.glb" id="3_h2yge"]
@@ -20,12 +20,30 @@ size = Vector3(4, 0.01, 4)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_7dm0k"]
 points = PackedVector3Array(2.03175, 0.026746, 2.03175, -2.03175, -0.036746, -2.03175, -2.03175, 0.026746, -2.03175, 2.03175, -0.036746, -2.03175, -2.03175, -0.036746, 2.03175, -2.03175, 0.026746, 2.03175, 2.03175, 0.026746, -2.03175, 2.03175, -0.036746, 2.03175)
 
+[sub_resource type="BoxMesh" id="BoxMesh_kek77"]
+size = Vector3(0.05, 0.05, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_efxa6"]
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_4c57u"]
+size = Vector3(0.05, 0.05, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dg77c"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kek77"]
+albedo_color = Color(1, 1, 0, 1)
+
 [sub_resource type="SphereMesh" id="SphereMesh_kek77"]
 radius = 0.01
 height = 0.02
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4c57u"]
 albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_kek77"]
+viewport_path = NodePath("SubViewport")
 
 [node name="Main" type="Node3D"]
 
@@ -37,46 +55,66 @@ mesh = SubResource("BoxMesh_ig7tw")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
 shape = SubResource("ConvexPolygonShape3D_7dm0k")
 
+[node name="BlueBox" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.16263, 0.0296674, 0)
+mesh = SubResource("BoxMesh_kek77")
+surface_material_override/0 = SubResource("StandardMaterial3D_efxa6")
+
+[node name="RedBox" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.914386, 0.0296674, 0.148023)
+mesh = SubResource("BoxMesh_4c57u")
+surface_material_override/0 = SubResource("StandardMaterial3D_dg77c")
+
+[node name="YellowBox" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.06549, 0.0296674, 0.363891)
+mesh = SubResource("BoxMesh_4c57u")
+surface_material_override/0 = SubResource("StandardMaterial3D_kek77")
+
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.794415, 0.607376, 0, -0.607376, 0.794415, 0.00109351, 1.1009, 1.09935)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.282258, 0.959339, 0, -0.959339, 0.282258, 0, 3.45444, 1.51648)
 
-[node name="Base" type="StaticBody3D" parent="."]
+[node name="SubViewport" type="SubViewport" parent="."]
+
+[node name="Base" type="StaticBody3D" parent="SubViewport"]
 script = ExtResource("1_5vw27")
 
-[node name="Joint_base" parent="Base" instance=ExtResource("3_h2yge")]
+[node name="Joint_base" parent="SubViewport/Base" instance=ExtResource("3_h2yge")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.20059, 0.201647)
 
-[node name="Joint_1" parent="Base/Joint_base" instance=ExtResource("4_1bvp3")]
+[node name="Joint_1" parent="SubViewport/Base/Joint_base" instance=ExtResource("4_1bvp3")]
 transform = Transform3D(-4.37114e-08, 1.31134e-07, 1, 4.37114e-08, -1, 1.31134e-07, 1, 4.37114e-08, 4.37114e-08, -0.000864685, 0.170372, -0.00227436)
 
-[node name="arm_1" parent="Base/Joint_base/Joint_1" instance=ExtResource("5_lquwl")]
+[node name="arm_1" parent="SubViewport/Base/Joint_base/Joint_1" instance=ExtResource("5_lquwl")]
 transform = Transform3D(1, 0, 0, 0, 1.31134e-07, -1, 0, 1, 1.31134e-07, 0.000864685, -0.000514328, 0.0797605)
 
-[node name="Joint_2" parent="Base/Joint_base/Joint_1/arm_1" instance=ExtResource("5_7mycd")]
+[node name="Joint_2" parent="SubViewport/Base/Joint_base/Joint_1/arm_1" instance=ExtResource("5_7mycd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.010553, 0.460902, -0.06549)
 
-[node name="joint_3" parent="Base/Joint_base/Joint_1/arm_1/Joint_2" instance=ExtResource("6_7mycd")]
-transform = Transform3D(1.91069e-15, 4.37114e-08, -1, 1, -4.37114e-08, 0, -4.37114e-08, -1, -4.37114e-08, -0.00156641, 0.065, -0.045)
+[node name="joint_3" parent="SubViewport/Base/Joint_base/Joint_1/arm_1/Joint_2" instance=ExtResource("6_7mycd")]
+transform = Transform3D(3.55271e-15, 4.37114e-08, -1, 1, -4.37114e-08, 1.09522e-29, -4.37114e-08, -1, -4.37114e-08, -0.00372088, 0.0758098, -0.045)
 
-[node name="arm_2" parent="Base/Joint_base/Joint_1/arm_1/Joint_2/joint_3" instance=ExtResource("7_272bh")]
+[node name="arm_2" parent="SubViewport/Base/Joint_base/Joint_1/arm_1/Joint_2/joint_3" instance=ExtResource("7_272bh")]
 transform = Transform3D(0.999999, 0, -1.23002e-14, 2.4869e-14, 1, 2.4869e-14, 9.01611e-15, 0, 0.999999, 0.31077, -0.00918269, -0.00119855)
 
-[node name="joint_4" parent="Base/Joint_base/Joint_1/arm_1/Joint_2/joint_3/arm_2" instance=ExtResource("9_kek77")]
+[node name="joint_4" parent="SubViewport/Base/Joint_base/Joint_1/arm_1/Joint_2/joint_3/arm_2" instance=ExtResource("9_kek77")]
 transform = Transform3D(4.37114e-08, 0.999999, -4.61853e-14, 1.31134e-07, -2.4869e-14, -1, -0.999999, 4.37114e-08, -1.31134e-07, 0.194531, 0.0231488, -0.00485297)
 
-[node name="joint_5" parent="Base/Joint_base/Joint_1/arm_1/Joint_2/joint_3/arm_2/joint_4" instance=ExtResource("10_4c57u")]
+[node name="joint_5" parent="SubViewport/Base/Joint_base/Joint_1/arm_1/Joint_2/joint_3/arm_2/joint_4" instance=ExtResource("10_4c57u")]
 transform = Transform3D(1.91068e-15, 4.37113e-08, 0.999999, 0.999999, -4.37113e-08, 0, 4.37113e-08, 0.999999, -4.37113e-08, -0.00173107, 0.0702076, 0.0478438)
 
-[node name="M1" type="MeshInstance3D" parent="Base"]
+[node name="Camera3D" type="Camera3D" parent="SubViewport/Base/Joint_base/Joint_1/arm_1/Joint_2/joint_3/arm_2/joint_4/joint_5"]
+transform = Transform3D(0.707116, 0.707101, 1.54541e-07, 0.707096, -0.707119, -1.62044e-07, -5.30128e-09, 2.23859e-07, -1, 0, 0.0752656, 0.0512981)
+
+[node name="M1" type="MeshInstance3D" parent="SubViewport/Base"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.17913, 0.212409, 0.201378)
 visible = false
 mesh = SubResource("SphereMesh_kek77")
 surface_material_override/0 = SubResource("StandardMaterial3D_4c57u")
 
-[node name="M2" type="MeshInstance3D" parent="Base"]
+[node name="M2" type="MeshInstance3D" parent="SubViewport/Base"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.18022, 0.156083, 0.347023)
 visible = false
 mesh = SubResource("SphereMesh_kek77")
@@ -141,3 +179,12 @@ offset_left = 39.0
 offset_top = 131.0
 offset_right = 399.0
 offset_bottom = 154.0
+
+[node name="CameraView" type="TextureRect" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+texture = SubResource("ViewportTexture_kek77")

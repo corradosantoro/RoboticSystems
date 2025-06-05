@@ -17,4 +17,5 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-DDS="*res://dds.gd"
+DDS="*res://Components/dds.gd"
+CameraSender="*res://Components/camera_sender.gd"
