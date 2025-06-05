@@ -39,7 +39,6 @@ if __name__ == "__main__":
     while True:
         dds.publish('read_image', 1, DDS.DDS_TYPE_INT)
         img = imr.read_image(512, 512)
-        print('do')
         cv2.imshow('image', img)
         k = cv2.waitKey(20)
         if k == ord('q'):
