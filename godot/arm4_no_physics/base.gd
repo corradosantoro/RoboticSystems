@@ -31,9 +31,9 @@ func _process(delta: float) -> void:
 	if read_image == 1:
 		DDS.subscribed_vars['read_image'] = 0
 		var image = camera_view.texture.get_image()
-		print(image.get_width(), ",", image.get_height(), ",", image.get_format())
+		#print(image.get_width(), ",", image.get_height(), ",", image.get_format())
 		var texture : PackedByteArray = image.get_data()
-		print(texture.size())
+		#print(texture.size())
 		CameraSender.send_data(texture)
 		
 	var t0 = DDS.read("theta0")
