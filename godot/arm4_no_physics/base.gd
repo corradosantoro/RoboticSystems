@@ -19,6 +19,7 @@ func _ready() -> void:
 	DDS.subscribe("theta3")
 	DDS.subscribe("x")
 	DDS.subscribe("y")
+	DDS.subscribe("z")
 	DDS.subscribe("a")
 	DDS.subscribe("read_image")
 
@@ -42,6 +43,7 @@ func _process(delta: float) -> void:
 	var t3 = DDS.read("theta3")
 	var x = DDS.read("x")
 	var y = DDS.read("y")
+	var z = DDS.read("z")
 	var a = DDS.read("a")
 	if t0 != null:
 		joint_base.rotation.y = t0
@@ -56,4 +58,4 @@ func _process(delta: float) -> void:
 		joint_5.rotation.x = -PI/2 - t3
 		theta_3_box.text = "%.2f" % (rad_to_deg(t3))
 	if x != null and y != null and a != null:
-		current_pose.text = "X=%.3f   Y=%.3f   A=%.2f" % [x,y,rad_to_deg(a)]
+		current_pose.text = "X=%.3f   Y=%.3f   Z=%.3f   A=%.2f" % [x,y,z,rad_to_deg(a)]

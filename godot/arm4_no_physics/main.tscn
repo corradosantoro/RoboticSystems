@@ -56,17 +56,17 @@ mesh = SubResource("BoxMesh_ig7tw")
 shape = SubResource("ConvexPolygonShape3D_7dm0k")
 
 [node name="BlueBox" type="MeshInstance3D" parent="Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.16263, 0.0296674, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.913253, 0.0296674, 0.145932)
 mesh = SubResource("BoxMesh_kek77")
 surface_material_override/0 = SubResource("StandardMaterial3D_efxa6")
 
 [node name="RedBox" type="MeshInstance3D" parent="Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.914386, 0.0296674, 0.148023)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.76476, 0.0296674, 0.245927)
 mesh = SubResource("BoxMesh_4c57u")
 surface_material_override/0 = SubResource("StandardMaterial3D_dg77c")
 
 [node name="YellowBox" type="MeshInstance3D" parent="Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.06549, 0.0296674, 0.363891)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.01561, 0.0296674, 0.363891)
 mesh = SubResource("BoxMesh_4c57u")
 surface_material_override/0 = SubResource("StandardMaterial3D_kek77")
 

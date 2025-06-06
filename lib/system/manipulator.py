@@ -94,11 +94,11 @@ class ThreeJointsPlanarArm:
         theta1 = math.atan2(yt, xt) - math.atan2(self.element_2.L * math.sin(theta2),
                                                  self.element_1.L + self.element_2.L * math.cos(theta2))
         theta3 = alpha - theta1 - theta2
-        
+
         return theta1, theta2, theta3
-        
-        
-        
+
+
+
 # --------------------------------------------------------------------------------
 
 class FourJointsArm(ThreeJointsPlanarArm):
@@ -106,11 +106,11 @@ class FourJointsArm(ThreeJointsPlanarArm):
     def __init__(self, _L1, _L2, _L3, _M2, _M3, _Mend, _b):
         super().__init__(_L1, _L2, _L3, _M2, _M3, _Mend, _b)
         self.element_0 = ArmElementNoGravity(_L1, _M2 + _M3 + _Mend, _b)
-        
+
     def evaluate(self, delta_t, _T0, _T1, _T2, _T3):
         self.element_0.evaluate(delta_t, _T0)
         super().evaluate(delta_t, _T1, _T2, _T3)
-                
+
     def inverse_kinematics(self, xt, yt, zt, alpha):
         y_prime = math.sqrt(xt**2 + yt**2)
         theta0 = math.atan2(xt, yt)
@@ -125,8 +125,14 @@ class FourJointsArm(ThreeJointsPlanarArm):
         theta0 = self.element_0.theta
         return theta0, theta1, theta2, theta3
 
+    def get_pose(self):
+        (xt, yt, alpha) = super().get_pose()
+        z = yt
+        y = xt * math.cos(self.element_0.theta)
+        x = xt * math.sin(self.element_0.theta)
+        return (x, y, z, alpha)
 
 
 
 
-        
+
