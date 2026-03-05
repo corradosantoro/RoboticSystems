@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://cr44u8jvxj58y"]
+[gd_scene format=3 uid="uid://cr44u8jvxj58y"]
 
 [ext_resource type="Script" uid="uid://dfjqyxwjvpw3u" path="res://ball_world.gd" id="1_5dbxi"]
 [ext_resource type="PackedScene" uid="uid://d1f057ntbgp4c" path="res://Components/DDS/dds.tscn" id="2_0k453"]
@@ -14,6 +14,10 @@ height = 40.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ktt8c"]
 size = Vector2(60, 40)
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ktt8c"]
+friction = 0.71
+bounce = 0.39
+
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_183uj"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_rl8m5"]
@@ -23,52 +27,60 @@ size = Vector3(1000, 10, 1)
 size = Vector2(2042, 19)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_skej5"]
+size = Vector2(20, 55)
 
-[node name="BallWorld" type="Node2D"]
+[node name="BallWorld" type="Node2D" unique_id=89311735]
 script = ExtResource("1_5dbxi")
 
-[node name="DDS" parent="." instance=ExtResource("2_0k453")]
+[node name="DDS" parent="." unique_id=910083256 instance=ExtResource("2_0k453")]
 
-[node name="Ball" type="RigidBody2D" parent="."]
+[node name="Ball" type="RigidBody2D" parent="." unique_id=930931396]
 position = Vector2(49, 291)
 physics_material_override = SubResource("PhysicsMaterial_kxumw")
 script = ExtResource("2_2fgf6")
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="Ball"]
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Ball" unique_id=745781448]
 modulate = Color(1, 0, 0, 1)
 mesh = SubResource("SphereMesh_cdytv")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball" unique_id=817734512]
 shape = SubResource("RectangleShape2D_ktt8c")
 
-[node name="RigidBody2D" type="StaticBody2D" parent="."]
+[node name="RigidBody2D" type="StaticBody2D" parent="." unique_id=821358588]
+physics_material_override = SubResource("PhysicsMaterial_ktt8c")
 
-[node name="MeshInstance2D" type="MeshInstance2D" parent="RigidBody2D"]
+[node name="MeshInstance2D" type="MeshInstance2D" parent="RigidBody2D" unique_id=278224049]
 material = SubResource("CanvasItemMaterial_183uj")
 position = Vector2(1020.5, 320)
 scale = Vector2(2.035, 1.2)
 mesh = SubResource("BoxMesh_rl8m5")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+[node name="MeshInstance2D2" type="MeshInstance2D" parent="RigidBody2D" unique_id=1166639912]
+material = SubResource("CanvasItemMaterial_183uj")
+position = Vector2(10.50001, 288.25)
+scale = Vector2(0.014999981, 5.25)
+mesh = SubResource("BoxMesh_rl8m5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=1579031583]
 position = Vector2(1019, 321.5)
 shape = SubResource("RectangleShape2D_i3crp")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="RigidBody2D"]
-position = Vector2(8, 302)
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="RigidBody2D" unique_id=3612167]
+position = Vector2(8, 284.5)
 shape = SubResource("RectangleShape2D_skej5")
 
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="RigidBody2D"]
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="RigidBody2D" unique_id=647390786]
 position = Vector2(2029, 302)
 shape = SubResource("RectangleShape2D_skej5")
 
-[node name="Control" type="Control" parent="."]
+[node name="Control" type="Control" parent="." unique_id=1658836976]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1159.0
 offset_bottom = 486.0
 metadata/_edit_lock_ = true
 
-[node name="Label" type="Label" parent="Control"]
+[node name="Label" type="Label" parent="Control" unique_id=844369594]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 1
 offset_left = 14.0
