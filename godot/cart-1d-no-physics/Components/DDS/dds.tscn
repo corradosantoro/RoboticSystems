@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1f057ntbgp4c"]
+
+[ext_resource type="Script" uid="uid://bmsy7lbl674wj" path="res://Components/DDS/dds.gd" id="1_k0853"]
+
+[node name="DDS" type="Node2D"]
+script = ExtResource("1_k0853")

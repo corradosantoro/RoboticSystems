@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://cl8k70s8prhea"]
+
+[ext_resource type="Texture2D" uid="uid://d8ugpr5m8tmj" path="res://car.png" id="1_aph70"]
+[ext_resource type="Script" uid="uid://dwinssfv76ywo" path="res://cart.gd" id="1_rb7fp"]
+[ext_resource type="PackedScene" uid="uid://d1f057ntbgp4c" path="res://Components/DDS/dds.tscn" id="3_jplhf"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pjrxg"]
+albedo_color = Color(1, 0.31764707, 0.38431373, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pjrxg"]
+material = SubResource("StandardMaterial3D_pjrxg")
+
+[node name="Cart" type="Control" unique_id=2085384622]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rb7fp")
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="." unique_id=1955481417]
+position = Vector2(1748.125, 304)
+scale = Vector2(3495.75, 36.5)
+mesh = SubResource("BoxMesh_pjrxg")
+
+[node name="CartSprite" type="Sprite2D" parent="." unique_id=1581652794]
+position = Vector2(50.000004, 267)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("1_aph70")
+
+[node name="telemetry" type="Label" parent="." unique_id=1238455942]
+layout_mode = 0
+offset_right = 255.0
+offset_bottom = 121.0
+
+[node name="DDS" parent="." unique_id=1307693995 instance=ExtResource("3_jplhf")]
