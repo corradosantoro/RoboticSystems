@@ -21,7 +21,7 @@ func _ready():
 	$motorArm1.set_param(HingeJoint3D.PARAM_MOTOR_TARGET_VELOCITY,0)
 	DDS.subscribe("torque")
 	
-func _physics_process(delta):
+func _physics_process(_delta):
 	var t = DDS.read("torque")
 	if t != null:
 		arm1.setTorque(t)
