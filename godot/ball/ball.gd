@@ -3,9 +3,12 @@ extends RigidBody2D
 @onready var label: Label = $"../Control/Label"
 @onready var dds: Node2D = $"../DDS"
 
+var initial_position
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	dds.subscribe("force")
+	initial_position = global_position.x
 
 var force = 100
 var t : float = 0
@@ -24,7 +27,7 @@ func _integrate_forces(state):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	label.text = "t = %.3f seconds\nv = %.3f pix/s\np = %.3f pix" % \
-		[t, self.linear_velocity.x, self.global_position.x]
+		[t, self.linear_velocity.x, self.global_position.x - initial_position]
 	dds.publish("speed", dds.DDS_TYPE_FLOAT, self.linear_velocity.x)
-	dds.publish("position", dds.DDS_TYPE_FLOAT, self.global_position.x)
+	dds.publish("position", dds.DDS_TYPE_FLOAT, self.global_position.x - initial_position)
 	t += delta

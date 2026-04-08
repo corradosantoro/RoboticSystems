@@ -48,16 +48,29 @@ class PI_Controller:
 
         return out
 
-class PID_Controller(PI_Controller):
+class PID_Controller:
 
     def __init__(self, _kp: float, _ki: float, _kd : float, _sat: Optional[float] = None):
-        super().__init__(_kp, _ki, _sat)
+        self.kp = _kp
+        self.ki = _ki
         self.kd = _kd
+        self.saturation = _sat
+        self.in_saturation = False
+        self.I = Integrator()
         self.D = Derivator()
 
     def evaluate(self, delta_t: float, _error: float) -> float:
-        out_PI = super().evaluate(delta_t, _error)
-        out_D = self.D.evaluate(delta_t, _error)
-        return out_PI + out_D * self.kd
+        out = self.kp * _error
 
+        if self.in_saturation:
+            out = out + self.ki * self.I.prev_output
+        else:
+            out = out + self.ki * self.I.evaluate(delta_t, _error)
+
+        out = out + self.kd * self.D.evaluate(delta_t, _error)
+        
+        if self.saturation is not None:
+            out, self.in_saturation = saturate(out, self.saturation)
+
+        return out
 

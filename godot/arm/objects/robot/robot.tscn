@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://dy2cx385hb8he" path="res://objects/robot/ArmScript.gd" id="4_473ep"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_oecsm"]
-bounce = 1.0
+bounce = 0.14
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f72rv"]
 albedo_color = Color(0.631373, 1, 0.858824, 1)
@@ -29,7 +29,7 @@ points = PackedVector3Array(0.0605361, 0.00399608, 0.00327574, 0.0605361, 0, 0.0
 script = ExtResource("1_nqrb4")
 
 [node name="Arm1" type="RigidBody3D" parent="." unique_id=1819097661]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00391829, -0.000276096, -0.000124088)
+transform = Transform3D(1, 0, 0, 0, 0.74874765, -0.66285527, 0, 0.6628555, 0.7487474, -0.00391829, -0.000276096, -0.000124088)
 mass = 10.0
 physics_material_override = SubResource("PhysicsMaterial_oecsm")
 script = ExtResource("4_473ep")
@@ -50,7 +50,11 @@ node_a = NodePath("../Waist")
 node_b = NodePath("../Arm1")
 params/bias = 0.99
 angular_limit/enable = true
+angular_limit/upper = 3.1415927
+angular_limit/lower = -3.1415927
+angular_limit/bias = 0.01
 angular_limit/softness = 0.01
+motor/target_velocity = 0.0
 
 [node name="Waist" type="RigidBody3D" parent="." unique_id=473150700]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0404612, 0.0136558)
