@@ -26,6 +26,12 @@ class VirtualRobot:
         self.p = 0  # current position
         self.phase = VirtualRobot.ACCEL
         self.decel_distance = 0.5 * _vmax * _vmax / _dec
+        
+    def start(self, _p_target):
+        self.p_target = _p_target
+        self.v = 0  # current speed
+        self.p = 0  # current position
+        self.phase = VirtualRobot.ACCEL
 
     def evaluate(self, delta_t : float) -> None:
         if self.phase == VirtualRobot.ACCEL:
@@ -122,3 +128,67 @@ class Path2D:
                 self.start( (x,y) )
 
         return (x,y)
+
+ # ------------------------------------------------------------
+
+class ContinuousPath2D:
+    def __init__(self, _vmax, _acc, _dec, _threshold):
+        self.threshold = _threshold
+        self.path = [ ]
+        self.trajectory = VirtualRobot(0, _vmax, _acc, _dec)
+
+    def set_path(self, path):
+        self.path = path
+
+    def start(self, start_pos):
+        self.total_distance = 0
+        self.cumulative_segment_length = []
+        p = start_pos
+        for next_point in self.path:
+            d = math.hypot(next_point[0] - p[0],
+                           next_point[1] - p[1])
+            self.total_distance += d
+            self.cumulative_segment_length.append(self.total_distance)
+            p = next_point
+            
+        self.current_segment = 0
+        self.first_segment_point = start_pos
+        self.second_segment_point = self.path[0]
+        self.trajectory.start(self.total_distance)
+        self.end_of_path = False
+
+    def evaluate(self, delta_t, current_pose):
+        if self.end_of_path:
+            d = math.hypot(self.path[-1][0] - current_pose[0],
+                           self.path[-1][1] - current_pose[1])
+            if d < self.threshold:
+                return None
+            else:
+                return self.path[-1]
+        self.trajectory.evaluate(delta_t)
+        p = self.trajectory.position()
+        if p >= self.cumulative_segment_length[self.current_segment]:
+            self.current_segment += 1
+            if self.current_segment == len(self.path):
+                #print("End of path")
+                self.end_of_path = True
+                return self.path[-1]
+            self.first_segment_point = self.second_segment_point
+            self.second_segment_point = self.path[self.current_segment]
+            
+        # siamo all'interno del segmento "self.current_segment"
+        #print("Segment ", self.current_segment, " - position ", p)
+        
+        dx = self.second_segment_point[0] - self.first_segment_point[0]
+        dy = self.second_segment_point[1] - self.first_segment_point[1]
+        angle = math.atan2(dy, dx)
+        if self.current_segment == 0:
+            distance_on_the_segment = p
+        else:
+            distance_on_the_segment = p - self.cumulative_segment_length[self.current_segment - 1]
+            
+        x = self.first_segment_point[0] + distance_on_the_segment * math.cos(angle)
+        y = self.first_segment_point[1] + distance_on_the_segment * math.sin(angle)
+            
+        return (x,y)
+    

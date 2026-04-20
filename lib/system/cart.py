@@ -76,6 +76,9 @@ class Cart2D:
         """
         return self.x, self.y, self.theta
 
+    def set_pose(self, x: float, y: float, th:float) -> None:
+        (self.x, self.y, self.theta) = (x, y, th)
+
     def get_speed(self) -> (float, float):
         """
         Returns the current robot's speed
