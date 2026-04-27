@@ -37,7 +37,7 @@ mesh = SubResource("2")
 shape = SubResource("3")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=521090752]
-transform = Transform3D(1, 0, 0, 0, 0.86301684, 0.5051752, 0, -0.5051752, 0.86301684, 3.27118, 10.2141, 16.270931)
+transform = Transform3D(0.007295381, -0.50516176, 0.8629939, 0, 0.86301684, 0.5051752, -0.9999734, -0.0036854453, 0.0062960363, 10.044479, 10.2141, 0.09843445)
 current = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2000399111]
@@ -45,3 +45,10 @@ transform = Transform3D(1, 0, 0, 0, 0.46823817, 0.8836023, 0, -0.8836023, 0.4682
 shadow_enabled = true
 
 [node name="DemoCar" parent="." unique_id=1011192078 instance=ExtResource("1")]
+
+[node name="Pose" type="Label" parent="." unique_id=178613827]
+offset_right = 252.0
+offset_bottom = 68.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 36
+text = "test"

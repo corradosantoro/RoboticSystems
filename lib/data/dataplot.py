@@ -19,6 +19,14 @@ class DataPlotter:
     def set_x(self, label):
         self.x_label = label
 
+    def set_x_data(self, label, d):
+        self.x_label = label
+        self.x_data = d
+
+    def add_y_data(self, varname, varlabel, vardata):
+        self.y_data[varname] = vardata
+        self.y_label[varname] = varlabel
+
     def append_x(self, value):
         self.x_data.append(value)
 

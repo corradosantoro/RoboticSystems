@@ -1,4 +1,5 @@
 extends CharacterBody3D
+@onready var pose: Label = $"../Pose"
 
 func _ready() -> void:
 	DDS.subscribe("X")
@@ -17,3 +18,5 @@ func _process(delta: float) -> void:
 		self.global_position.x = -y
 		self.global_position.z = -x
 		self.global_rotation.y = theta
+		pose.text = "X: %.3f, Y: %.3f, Theta: %.0f" % \
+			[x, y, rad_to_deg(theta)]
