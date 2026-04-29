@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://h256phirtxuw"]
+
+[ext_resource type="Script" uid="uid://dedn6g44hlh6w" path="res://robot.gd" id="1_0xm2m"]
+[ext_resource type="ArrayMesh" uid="uid://3ofn02b15trd" path="res://Assets/Master assembly.obj" id="1_ig7tw"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7dm0k"]
+
+[sub_resource type="Sky" id="Sky_ig7tw"]
+sky_material = SubResource("ProceduralSkyMaterial_7dm0k")
+
+[sub_resource type="Environment" id="Environment_0xm2m"]
+background_mode = 2
+sky = SubResource("Sky_ig7tw")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7dm0k"]
+size = Vector2(4, 4)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ig7tw"]
+albedo_color = Color(0.4351923, 0.43519226, 0.43519226, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0xm2m"]
+size = Vector3(4, 0.001, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ig7tw"]
+size = Vector3(174.10298, 95.7094, 147.0874)
+
+[node name="Main" type="Node3D" unique_id=459380043]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=603418173]
+environment = SubResource("Environment_0xm2m")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=104098204]
+transform = Transform3D(1.2889326e-07, -0.5699968, 0.821647, -2.1883627e-08, 0.821647, 0.5699968, -1, -9.144935e-08, 9.343115e-08, 1.9628061, 1.1255038, 0.22897267)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1940354904]
+transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 3.1892223, 1.5956454)
+
+[node name="Floor" type="StaticBody3D" parent="." unique_id=927310837]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor" unique_id=838982985]
+mesh = SubResource("PlaneMesh_7dm0k")
+surface_material_override/0 = SubResource("StandardMaterial3D_ig7tw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" unique_id=453641044]
+shape = SubResource("BoxShape3D_0xm2m")
+
+[node name="Robot" type="StaticBody3D" parent="." unique_id=879211542]
+script = ExtResource("1_0xm2m")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Robot" unique_id=1215595094]
+transform = Transform3D(0.002, 0, 0, 0, 0.002, 0, 0, 0, 0.002, -0.0832594, -0.019555718, -0.17455295)
+mesh = ExtResource("1_ig7tw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Robot" unique_id=1235291789]
+transform = Transform3D(0.002, 0, 0, 0, 0.002, 0, 0, 0, 0.002, 0.005504936, 0.095483094, 0.005003482)
+shape = SubResource("BoxShape3D_ig7tw")
