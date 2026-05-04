@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://h256phirtxuw"]
 
 [ext_resource type="Script" uid="uid://dedn6g44hlh6w" path="res://robot.gd" id="1_0xm2m"]
-[ext_resource type="ArrayMesh" uid="uid://3ofn02b15trd" path="res://Assets/Master assembly.obj" id="1_ig7tw"]
+[ext_resource type="ArrayMesh" uid="uid://c42cw3dk3htog" path="res://Assets/Mecanum Wheel Left.obj" id="2_h2yge"]
+[ext_resource type="ArrayMesh" uid="uid://c3i6powddsfs1" path="res://Assets/Mecanum Wheel Right.obj" id="3_1bvp3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_7dm0k"]
 
@@ -21,8 +22,51 @@ albedo_color = Color(0.4351923, 0.43519226, 0.43519226, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_0xm2m"]
 size = Vector3(4, 0.001, 4)
 
+[sub_resource type="BoxMesh" id="BoxMesh_lquwl"]
+size = Vector3(0.1, 0.02, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7mycd"]
+albedo_color = Color(0, 1, 1, 1)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_ig7tw"]
 size = Vector3(174.10298, 95.7094, 147.0874)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2yge"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_1bvp3"]
+material = SubResource("StandardMaterial3D_h2yge")
+size = Vector3(0.02, 0.02, 0.02)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1bvp3"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_h2yge"]
+material = SubResource("StandardMaterial3D_1bvp3")
+size = Vector2(0.01, 1)
+center_offset = Vector3(0, 0.001, -0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lquwl"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_7mycd"]
+material = SubResource("StandardMaterial3D_lquwl")
+size = Vector3(0.1, 0.1, 0.01)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_272bh"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1bvp3"]
+material = SubResource("StandardMaterial3D_272bh")
+size = Vector2(0.01, 0.5)
+center_offset = Vector3(0, 0.001, -0.25)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5vw27"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_kek77"]
+material = SubResource("StandardMaterial3D_5vw27")
+size = Vector3(0.1, 0.1, 0.01)
 
 [node name="Main" type="Node3D" unique_id=459380043]
 
@@ -30,7 +74,7 @@ size = Vector3(174.10298, 95.7094, 147.0874)
 environment = SubResource("Environment_0xm2m")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=104098204]
-transform = Transform3D(1.2889326e-07, -0.5699968, 0.821647, -2.1883627e-08, 0.821647, 0.5699968, -1, -9.144935e-08, 9.343115e-08, 1.9628061, 1.1255038, 0.22897267)
+transform = Transform3D(1, 9.70036e-08, -1.1406344e-07, -1.4686923e-08, 0.821647, 0.5699967, 1.4901161e-07, -0.5699967, 0.821647, -0.002064228, 0.55730546, 0.40551317)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1940354904]
 transform = Transform3D(1, 0, 0, 0, 0.49999997, 0.86602545, 0, -0.86602545, 0.49999997, 0, 3.1892223, 1.5956454)
@@ -48,9 +92,63 @@ shape = SubResource("BoxShape3D_0xm2m")
 script = ExtResource("1_0xm2m")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Robot" unique_id=1215595094]
-transform = Transform3D(0.002, 0, 0, 0, 0.002, 0, 0, 0, 0.002, -0.0832594, -0.019555718, -0.17455295)
-mesh = ExtResource("1_ig7tw")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03192696, 0)
+mesh = SubResource("BoxMesh_lquwl")
+surface_material_override/0 = SubResource("StandardMaterial3D_7mycd")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Robot" unique_id=1235291789]
 transform = Transform3D(0.002, 0, 0, 0, 0.002, 0, 0, 0, 0.002, 0.005504936, 0.095483094, 0.005003482)
 shape = SubResource("BoxShape3D_ig7tw")
+
+[node name="W4" type="MeshInstance3D" parent="Robot" unique_id=1642465759]
+transform = Transform3D(0.001, 0, 0, 0, 0.001, 0, 0, 0, 0.001, 0.07, 0.03, 0.07)
+mesh = ExtResource("2_h2yge")
+
+[node name="W1" type="MeshInstance3D" parent="Robot" unique_id=435523790]
+transform = Transform3D(-0.0010000002, 0, -8.742279e-11, 0, 0.001, 0, 8.742279e-11, 0, -0.0010000002, -0.07, 0.03, -0.07)
+mesh = ExtResource("2_h2yge")
+
+[node name="W2" type="MeshInstance3D" parent="Robot" unique_id=1311142345]
+transform = Transform3D(-0.0010000002, 0, -8.742279e-11, 0, 0.001, 0, 8.742279e-11, 0, -0.0010000002, 0.07, 0.030206036, -0.07)
+mesh = ExtResource("3_1bvp3")
+
+[node name="W3" type="MeshInstance3D" parent="Robot" unique_id=1362274494]
+transform = Transform3D(0.0010000003, 0, 0, 0, 0.001, 0, 0, 0, 0.0010000003, -0.07, 0.03, 0.07)
+mesh = ExtResource("3_1bvp3")
+
+[node name="Front" type="MeshInstance3D" parent="Robot" unique_id=1690216189]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0.05153819, -0.0856199)
+mesh = SubResource("PrismMesh_1bvp3")
+
+[node name="Pose" type="Label" parent="." unique_id=1384709892]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+
+[node name="Wheels" type="Label" parent="." unique_id=1179354908]
+offset_left = 1.0
+offset_top = 59.0
+offset_right = 41.0
+offset_bottom = 93.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 24
+
+[node name="XAxis" type="Node3D" parent="." unique_id=2067340138]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XAxis" unique_id=901235771]
+mesh = SubResource("PlaneMesh_h2yge")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="XAxis" unique_id=2126707200]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, -1.0400932)
+mesh = SubResource("PrismMesh_7mycd")
+
+[node name="YAxis" type="Node3D" parent="." unique_id=2105862578]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="YAxis" unique_id=779502229]
+mesh = SubResource("PlaneMesh_1bvp3")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="YAxis" unique_id=1299375194]
+transform = Transform3D(1, 4.371139e-08, 4.371139e-08, -4.371139e-08, -4.371139e-08, 1, 4.371139e-08, -1, -4.3711385e-08, 2.293557e-08, 0, -0.5247047)
+mesh = SubResource("PrismMesh_kek77")

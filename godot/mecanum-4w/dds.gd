@@ -97,9 +97,15 @@ func _ready() -> void:
 	udp_server.listen(server_port)
 	subscribers = {}
 	variables = {}
+	var t = Thread.new()
+	t.start(run)
+	
+func run():
+	while true:
+		p_process(0.01)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func p_process(delta: float) -> void:
 	for k in subscribers.keys():
 		if subscribers[k].process(delta):
 			subscribers.erase(k)
