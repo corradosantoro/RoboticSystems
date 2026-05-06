@@ -4,6 +4,7 @@
 
 import math
 import numpy as np
+from lib.utils.geometry import *
 
 class MecanumFourWheels:
 
@@ -49,7 +50,7 @@ class MecanumFourWheels:
 
         self.x = self.x + vx * delta_t
         self.y = self.y + vy * delta_t
-        self.theta = self.theta + delta_t * self.angular_v
+        self.theta = normalize_angle(self.theta + delta_t * self.angular_v)
 
     def get_pose(self) -> (float, float, float):
         return self.x, self.y, self.theta

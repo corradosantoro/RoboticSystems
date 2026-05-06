@@ -3,6 +3,8 @@
 #
 
 import math
+import numpy as np
+from lib.utils.geometry import *
 
 # ------------------------------------------------------------
 
@@ -26,7 +28,7 @@ class VirtualRobot:
         self.p = 0  # current position
         self.phase = VirtualRobot.ACCEL
         self.decel_distance = 0.5 * _vmax * _vmax / _dec
-        
+
     def start(self, _p_target):
         self.p_target = _p_target
         self.v = 0  # current speed
@@ -102,6 +104,38 @@ class StraightLine2DMotion:
 
 # ------------------------------------------------------------
 
+class StraightLineMotion:
+
+    def __init__(self, _vmax, _acc, _dec, angles_index = -1):
+        self.vmax = _vmax
+        self.accel = _acc
+        self.decel = _dec
+        self.angles_index = angles_index
+
+    def start_motion(self, start, end):
+        self.start = np.array(start)
+        self.end = np.array(end)
+        self.size = len(start)
+        self.diff = self.end - self.start
+        self.__normalize_angles(self.diff)
+        self.distance = np.linalg.norm(self.diff)
+        self.virtual_robot = VirtualRobot(self.distance,
+                                          self.vmax, self.accel, self.decel)
+
+    def evaluate(self, delta_t):
+        self.virtual_robot.evaluate(delta_t)
+        param = self.virtual_robot.p / self.distance
+        new_pos = self.start + param * self.diff
+        self.__normalize_angles(new_pos)
+        return new_pos.flatten().tolist()
+
+    def __normalize_angles(self, a):
+        if self.angles_index >= 0:
+            for i in range(self.angles_index, self.size):
+                a[i] = normalize_angle(a[i])
+
+# ------------------------------------------------------------
+
 class Path2D:
     def __init__(self, _vmax, _acc, _dec, _threshold):
         self.threshold = _threshold
@@ -150,7 +184,7 @@ class ContinuousPath2D:
             self.total_distance += d
             self.cumulative_segment_length.append(self.total_distance)
             p = next_point
-            
+
         self.current_segment = 0
         self.first_segment_point = start_pos
         self.second_segment_point = self.path[0]
@@ -175,10 +209,10 @@ class ContinuousPath2D:
                 return self.path[-1]
             self.first_segment_point = self.second_segment_point
             self.second_segment_point = self.path[self.current_segment]
-            
+
         # siamo all'interno del segmento "self.current_segment"
         #print("Segment ", self.current_segment, " - position ", p)
-        
+
         dx = self.second_segment_point[0] - self.first_segment_point[0]
         dy = self.second_segment_point[1] - self.first_segment_point[1]
         angle = math.atan2(dy, dx)
@@ -186,9 +220,9 @@ class ContinuousPath2D:
             distance_on_the_segment = p
         else:
             distance_on_the_segment = p - self.cumulative_segment_length[self.current_segment - 1]
-            
+
         x = self.first_segment_point[0] + distance_on_the_segment * math.cos(angle)
         y = self.first_segment_point[1] + distance_on_the_segment * math.sin(angle)
-            
+
         return (x,y)
-    
+
