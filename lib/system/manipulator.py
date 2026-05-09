@@ -1,5 +1,5 @@
 import math
-from lib.utils.geometry import local_to_global
+from lib.utils.geometry import *
 
 GRAVITY = 9.81
 
@@ -75,17 +75,14 @@ class ThreeJointsPlanarArm:
         return [(x1, y1), (x2, y2), (x3, y3)]
 
     def get_pose(self):
-        (x1, y1) = self.element_1.get_pose()
-
-        (_x2, _y2) = self.element_2.get_pose()
-        (x2, y2) = local_to_global(x1, y1, self.element_1.theta, _x2, _y2)
-
-        (_x3, _y3) = self.element_3.get_pose()
-        (x3, y3) = local_to_global(x2, y2, self.element_1.theta, _x3, _y3)
-
-        alpha = self.element_1.theta + self.element_2.theta + self.element_3.theta
-
-        return x3, y3, alpha
+        x_t = self.element_1.L * math.cos(self.element_1.theta) + \
+          self.element_2.L * math.cos(self.element_1.theta + self.element_2.theta) + \
+          self.element_3.L * math.cos(self.element_1.theta + self.element_2.theta + self.element_3.theta)
+        y_t = self.element_1.L * math.sin(self.element_1.theta) + \
+          self.element_2.L * math.sin(self.element_1.theta + self.element_2.theta) + \
+          self.element_3.L * math.sin(self.element_1.theta + self.element_2.theta + self.element_3.theta)
+        alpha = normalize_angle(self.element_1.theta + self.element_2.theta + self.element_3.theta)
+        return x_t, y_t, alpha
 
     def inverse_kinematics(self, xt, yt, alpha):
         x2 = xt - self.element_3.L * math.cos(alpha)
@@ -94,7 +91,7 @@ class ThreeJointsPlanarArm:
                     2 * self.element_1.L * self.element_2.L)
         if (acos_arg < -1)or(acos_arg > 1):
             return None, None, None
-        theta2 = math.acos(acos_arg)
+        theta2 = - math.acos(acos_arg)
         theta1 = math.atan2(y2, x2) - math.atan2(self.element_2.L * math.sin(theta2),
                                                  self.element_1.L + self.element_2.L * math.cos(theta2))
         theta3 = alpha - theta1 - theta2
