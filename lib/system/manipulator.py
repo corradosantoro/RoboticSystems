@@ -80,18 +80,22 @@ class ThreeJointsPlanarArm:
         (_x2, _y2) = self.element_2.get_pose()
         (x2, y2) = local_to_global(x1, y1, self.element_1.theta, _x2, _y2)
 
+        (_x3, _y3) = self.element_3.get_pose()
+        (x3, y3) = local_to_global(x2, y2, self.element_1.theta, _x3, _y3)
+
         alpha = self.element_1.theta + self.element_2.theta + self.element_3.theta
 
-        return x2, y2, alpha
+        return x3, y3, alpha
 
     def inverse_kinematics(self, xt, yt, alpha):
-        atan_den = (xt ** 2 + yt ** 2 - self.element_1.L ** 2 - self.element_2.L ** 2) / (
+        x2 = xt - self.element_3.L * math.cos(alpha)
+        y2 = yt - self.element_3.L * math.sin(alpha)
+        acos_arg = (x2 ** 2 + y2 ** 2 - self.element_1.L ** 2 - self.element_2.L ** 2) / (
                     2 * self.element_1.L * self.element_2.L)
-        arg = 1 - atan_den ** 2
-        if arg < 0:
+        if (acos_arg < -1)or(acos_arg > 1):
             return None, None, None
-        theta2 = math.atan2( - math.sqrt(arg), atan_den)
-        theta1 = math.atan2(yt, xt) - math.atan2(self.element_2.L * math.sin(theta2),
+        theta2 = math.acos(acos_arg)
+        theta1 = math.atan2(y2, x2) - math.atan2(self.element_2.L * math.sin(theta2),
                                                  self.element_1.L + self.element_2.L * math.cos(theta2))
         theta3 = alpha - theta1 - theta2
 
@@ -131,8 +135,4 @@ class FourJointsArm(ThreeJointsPlanarArm):
         y = xt * math.cos(self.element_0.theta)
         x = xt * math.sin(self.element_0.theta)
         return (x, y, z, alpha)
-
-
-
-
 
