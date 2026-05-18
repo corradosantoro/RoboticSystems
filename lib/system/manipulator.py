@@ -91,7 +91,7 @@ class ThreeJointsPlanarArm:
                     2 * self.element_1.L * self.element_2.L)
         if (acos_arg < -1)or(acos_arg > 1):
             return None, None, None
-        theta2 = - math.acos(acos_arg)
+        theta2 = - math.acos(acos_arg) # elbow up
         theta1 = math.atan2(y2, x2) - math.atan2(self.element_2.L * math.sin(theta2),
                                                  self.element_1.L + self.element_2.L * math.cos(theta2))
         theta3 = alpha - theta1 - theta2
@@ -113,9 +113,9 @@ class FourJointsArm(ThreeJointsPlanarArm):
         super().evaluate(delta_t, _T1, _T2, _T3)
 
     def inverse_kinematics(self, xt, yt, zt, alpha):
-        y_prime = math.sqrt(xt**2 + yt**2)
-        theta0 = math.atan2(xt, yt)
-        (theta1, theta2, theta3) = super().inverse_kinematics(y_prime, zt, alpha)
+        x_prime = math.sqrt(xt**2 + yt**2)
+        theta0 = math.atan2(yt, xt)
+        (theta1, theta2, theta3) = super().inverse_kinematics(x_prime, zt, alpha)
         if theta1 is None:
             return None, None, None, None
         else:
@@ -127,9 +127,9 @@ class FourJointsArm(ThreeJointsPlanarArm):
         return theta0, theta1, theta2, theta3
 
     def get_pose(self):
-        (xt, yt, alpha) = super().get_pose()
-        z = yt
-        y = xt * math.cos(self.element_0.theta)
-        x = xt * math.sin(self.element_0.theta)
+        (x_prime, y_prime, alpha) = super().get_pose()
+        x = x_prime * math.cos(self.element_0.theta)
+        y = x_prime * math.sin(self.element_0.theta)
+        z = y_prime
         return (x, y, z, alpha)
 
