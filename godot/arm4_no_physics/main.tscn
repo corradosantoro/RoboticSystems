@@ -122,34 +122,34 @@ surface_material_override/0 = SubResource("StandardMaterial3D_4c57u")
 
 [node name="Label" type="Label" parent="." unique_id=1311742462]
 offset_left = 35.0
-offset_top = 27.0
+offset_top = 47.0
 offset_right = 99.0
-offset_bottom = 50.0
+offset_bottom = 70.0
 size_flags_horizontal = 0
 text = "THETA1:"
 
 [node name="Label2" type="Label" parent="." unique_id=308054898]
 offset_left = 35.0
-offset_top = 62.0
+offset_top = 82.0
 offset_right = 99.0
-offset_bottom = 85.0
+offset_bottom = 105.0
 size_flags_horizontal = 0
 text = "THETA2:"
 
 [node name="Label3" type="Label" parent="." unique_id=484563712]
 offset_left = 34.0
-offset_top = 96.0
+offset_top = 116.0
 offset_right = 98.0
-offset_bottom = 119.0
+offset_bottom = 139.0
 size_flags_horizontal = 0
 text = "THETA3:"
 
 [node name="theta1box" type="TextEdit" parent="." unique_id=1514551994]
 custom_minimum_size = Vector2(80, 30)
 offset_left = 105.0
-offset_top = 24.0
+offset_top = 44.0
 offset_right = 185.0
-offset_bottom = 44.0
+offset_bottom = 79.0
 editable = false
 scroll_fit_content_height = true
 scroll_fit_content_width = true
@@ -157,9 +157,9 @@ scroll_fit_content_width = true
 [node name="theta2box" type="TextEdit" parent="." unique_id=850975375]
 custom_minimum_size = Vector2(80, 30)
 offset_left = 105.0
-offset_top = 58.0
+offset_top = 78.0
 offset_right = 185.0
-offset_bottom = 88.0
+offset_bottom = 113.0
 editable = false
 scroll_fit_content_height = true
 scroll_fit_content_width = true
@@ -167,20 +167,21 @@ scroll_fit_content_width = true
 [node name="theta3box" type="TextEdit" parent="." unique_id=2035026036]
 custom_minimum_size = Vector2(80, 30)
 offset_left = 105.0
-offset_top = 93.0
+offset_top = 113.0
 offset_right = 185.0
-offset_bottom = 123.0
+offset_bottom = 148.0
 editable = false
 scroll_fit_content_height = true
 scroll_fit_content_width = true
 
 [node name="CurrentPose" type="Label" parent="." unique_id=650672898]
 offset_left = 39.0
-offset_top = 131.0
+offset_top = 151.0
 offset_right = 399.0
-offset_bottom = 154.0
+offset_bottom = 174.0
 
 [node name="CameraView" type="TextureRect" parent="." unique_id=1855911084]
+visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -188,3 +189,21 @@ offset_left = -40.0
 offset_bottom = 40.0
 grow_horizontal = 0
 texture = SubResource("ViewportTexture_kek77")
+
+[node name="Label4" type="Label" parent="." unique_id=2017772985]
+offset_left = 35.0
+offset_top = 12.0
+offset_right = 99.0
+offset_bottom = 35.0
+size_flags_horizontal = 0
+text = "THETA0:"
+
+[node name="theta0box" type="TextEdit" parent="." unique_id=1660234746]
+custom_minimum_size = Vector2(80, 30)
+offset_left = 105.0
+offset_top = 9.0
+offset_right = 185.0
+offset_bottom = 44.0
+editable = false
+scroll_fit_content_height = true
+scroll_fit_content_width = true

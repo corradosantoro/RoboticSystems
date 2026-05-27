@@ -11,7 +11,6 @@ extends StaticBody3D
 @onready var current_pose: Label = $"../../CurrentPose"
 @onready var camera_view: TextureRect = $"../../CameraView"
 
-@onready var tick_count = 0
 
 func _ready() -> void:
 	DDS.subscribe("theta0")
@@ -20,31 +19,28 @@ func _ready() -> void:
 	DDS.subscribe("theta3")
 	DDS.subscribe("x")
 	DDS.subscribe("y")
-	DDS.subscribe("z")
 	DDS.subscribe("a")
-	DDS.subscribe("read_image")
 
 	
+var tick_count = 0
 
 func _process(delta: float) -> void:
 	DDS.publish("tick", DDS.DDS_TYPE_FLOAT, delta)
-	#print(delta)
-	var read_image = DDS.read("read_image")
-	if read_image == 1:
-		DDS.subscribed_vars['read_image'] = 0
+	tick_count += 1
+	if tick_count > 2:
 		var image = camera_view.texture.get_image()
-		#print(image.get_width(), ",", image.get_height(), ",", image.get_format())
+		print(image.get_width(), ",", image.get_height(), ",", image.get_format())
 		var texture : PackedByteArray = image.get_data()
-		#print(texture.size())
+		print(texture.size())
 		CameraSender.send_data(texture)
-		
+		tick_count = 0
+	#print(delta)
 	var t0 = DDS.read("theta0")
 	var t1 = DDS.read("theta1")
 	var t2 = DDS.read("theta2")
 	var t3 = DDS.read("theta3")
 	var x = DDS.read("x")
 	var y = DDS.read("y")
-	var z = DDS.read("z")
 	var a = DDS.read("a")
 	if t0 != null:
 		joint_base.rotation.y = t0
@@ -56,8 +52,14 @@ func _process(delta: float) -> void:
 		joint_3.rotation.x = t2
 		theta_2_box.text = "%.2f" % (rad_to_deg(t2))
 	if t3 != null:
-		joint_5.rotation.z = PI/2
-		joint_5.rotation.x = -PI/2 - t3
+		if t3 >= 0:
+			joint_5.rotation.z = PI/2
+			joint_5.rotation.y = PI/2
+		else:
+			joint_5.rotation.z = -PI/2
+			joint_5.rotation.y = -PI/2
+		joint_5.rotation.x = -PI/2 + t3
 		theta_3_box.text = "%.2f" % (rad_to_deg(t3))
 	if x != null and y != null and a != null:
-		current_pose.text = "X=%.3f   Y=%.3f   Z=%.3f   A=%.2f" % [x,y,z,rad_to_deg(a)]
+		current_pose.text = "X=%.3f   Y=%.3f   A=%.2f" % [x,y,rad_to_deg(a)]
+		

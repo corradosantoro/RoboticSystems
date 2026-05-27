@@ -26,7 +26,7 @@ class FourJointsManipulatorControl:
                                               20)  # 20Nm max torque, antiwindup
 
         # joint 3
-        self.speed_control_3 = PID_Controller(1, 0.4, 0,
+        self.speed_control_3 = PID_Controller(1, 2.0, 0,
                                               20)  # 20Nm max torque, antiwindup
 
         self.pos_control_0 = PID_Controller(3, 0, 0, 2)  # 2 rad/s max speed
