@@ -108,7 +108,7 @@ while True:
 
             if target_locked:
                 z_target_robot -= 0.1 * delta_t
-                if z_target_robot <= 0:
+                if z_target_robot <= 0.0:
                     print("Object got")
                     sys.exit(1)
             robot.set_target(x_target_robot, y_target_robot, z_target_robot, math.radians(-90))

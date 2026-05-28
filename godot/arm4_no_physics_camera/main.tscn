@@ -60,7 +60,7 @@ mesh = SubResource("BoxMesh_kek77")
 surface_material_override/0 = SubResource("StandardMaterial3D_efxa6")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1487296640]
-transform = Transform3D(1, 0, 0, 0, 0.794415, 0.607376, 0, -0.607376, 0.794415, 0.00109351, 1.1009, 1.09935)
+transform = Transform3D(0.1862497, -0.5967482, 0.7805144, 0, 0.7944147, 0.60737574, -0.98250246, -0.11312355, 0.1479595, 1.5567724, 0.4228952, 0.2963891)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=118540232]
 transform = Transform3D(1, 0, 0, 0, 0.282258, 0.959339, 0, -0.959339, 0.282258, 0, 3.45444, 1.51648)
@@ -92,7 +92,7 @@ transform = Transform3D(0.999999, 0, -1.23002e-14, 2.4869e-14, 1, 2.4869e-14, 9.
 transform = Transform3D(4.37114e-08, 0.999999, -4.61853e-14, 1.31134e-07, -2.4869e-14, -1, -0.999999, 4.37114e-08, -1.31134e-07, 0.194531, 0.0231488, -0.00485297)
 
 [node name="joint_5" parent="SubViewport/Base/Joint_base/Joint_1/arm_1/Joint_2/joint_3/arm_2/joint_4" unique_id=832558631 instance=ExtResource("10_4c57u")]
-transform = Transform3D(-0.965925, 9.27783e-08, 0.258819, 0.258819, -4.67427e-08, 0.965925, 1.01715e-07, 0.999999, 2.11372e-08, -0.00173117, 0.0702076, 0.0478438)
+transform = Transform3D(-0.9999992, 8.7422684e-08, -4.3711353e-08, -4.3711353e-08, 1.9106833e-15, 0.9999992, 8.7422706e-08, 0.9999989, 1.910684e-15, -0.0017311871, 0.070207596, 0.047843784)
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport/Base/Joint_base/Joint_1/arm_1/Joint_2/joint_3/arm_2/joint_4/joint_5" unique_id=1136174279]
 transform = Transform3D(-0.965929, 0, -0.25882, 0, 1, 0, 0.25882, 0, -0.965929, 0.0454065, 0.085573, 0.0880225)
