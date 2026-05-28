@@ -22,8 +22,8 @@ class FourJointsManipulatorControl:
                                               20)  # 20Nm max torque, antiwindup
 
         # joint 2
-        self.speed_control_2 = PID_Controller(20, 5, 0,
-                                              20)  # 20Nm max torque, antiwindup
+        self.speed_control_2 = PID_Controller(10, 2.0, 0.25,
+                                              10)  # 10Nm max torque, antiwindup
 
         # joint 3
         self.speed_control_3 = PID_Controller(1, 2.0, 0,
@@ -46,15 +46,15 @@ class FourJointsManipulatorControl:
 
     def evaluate(self, delta_t):
 
-        wref_0 = self.pos_control_0.evaluate(delta_t, self.theta0 - self.arm.element_0.theta)
-        wref_1 = self.pos_control_1.evaluate(delta_t, self.theta1 - self.arm.element_1.theta)
-        wref_2 = self.pos_control_2.evaluate(delta_t, self.theta2 - self.arm.element_2.theta)
-        wref_3 = self.pos_control_3.evaluate(delta_t, self.theta3 - self.arm.element_3.theta)
+        self.wref_0 = self.pos_control_0.evaluate(delta_t, self.theta0 - self.arm.element_0.theta)
+        self.wref_1 = self.pos_control_1.evaluate(delta_t, self.theta1 - self.arm.element_1.theta)
+        self.wref_2 = self.pos_control_2.evaluate(delta_t, self.theta2 - self.arm.element_2.theta)
+        self.wref_3 = self.pos_control_3.evaluate(delta_t, self.theta3 - self.arm.element_3.theta)
 
-        torque0 = self.speed_control_0.evaluate(delta_t, wref_0 - self.arm.element_0.w)
-        torque1 = self.speed_control_1.evaluate(delta_t, wref_1 - self.arm.element_1.w)
-        torque2 = self.speed_control_2.evaluate(delta_t, wref_2 - self.arm.element_2.w)
-        torque3 = self.speed_control_3.evaluate(delta_t, wref_3 - self.arm.element_3.w)
+        torque0 = self.speed_control_0.evaluate(delta_t, self.wref_0 - self.arm.element_0.w)
+        torque1 = self.speed_control_1.evaluate(delta_t, self.wref_1 - self.arm.element_1.w)
+        torque2 = self.speed_control_2.evaluate(delta_t, self.wref_2 - self.arm.element_2.w)
+        torque3 = self.speed_control_3.evaluate(delta_t, self.wref_3 - self.arm.element_3.w)
 
         self.arm.evaluate(delta_t, torque0, torque1, torque2, torque3)
 
