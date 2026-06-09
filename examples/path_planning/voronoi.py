@@ -30,13 +30,16 @@ class VoronoiPlanner:
             v = self.world.world_map[k]
             if v != 0:
                 x,y = self.world.to_world(k[0], k[1])
-                subdiv.insert((int(x), int(y)))
+                subdiv.insert((x, y))
+
         facets, centers = subdiv.getVoronoiFacetList([])
         for fs in facets:
             prev_point = None
             for f in fs:
                 current_point = (int(f[0]), int(f[1]))
-                if (current_point[0] >= 0)and(current_point[1] >= 0)and(current_point[0] < self.world.x_size)and(current_point[1] < self.world.y_size):
+                if (current_point[0] >= 0)and(current_point[1] >= 0)and \
+                  (current_point[0] < self.world.x_size)and(current_point[1] < self.world.y_size):
+
                     current_point_value = self.world.item_at(*current_point)
                     if current_point_value == 0:
                         if prev_point is None:
@@ -46,6 +49,7 @@ class VoronoiPlanner:
                             if (prev_point_value == 0):
                                 cv2.line(image, prev_point, current_point, (0,255,0), 1)
                                 prev_point = current_point
+
         return image
 
 if __name__ == "__main__":

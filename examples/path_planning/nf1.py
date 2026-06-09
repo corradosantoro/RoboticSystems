@@ -16,17 +16,33 @@ class NF1Planner:
             if v == 0:
                 self.mark_map[k] = None # not a mark
             else:
-                self.mark_map[k] = -1 # obsacle
+                self.mark_map[k] = -1 # obstacle
+        self.path = []
 
     def world_to_image(self):
+        font = cv2.FONT_HERSHEY_SIMPLEX
         image = np.zeros((self.world.x_size, self.world.y_size,3), dtype = np.uint8)
         for k in self.mark_map:
             v = self.mark_map[k]
             if v >= 0:
                 x,y = self.world.to_world(k[0], k[1])
-                cv2.putText(image, "%d" % (v),
-                                (int(x - self.world.scale / 2), int(y - self.world.scale / 2)),
+                text = "%d" % (v)
+
+                textsize = cv2.getTextSize(text, font, 0.75, 2)[0]
+
+                x = int(x - (textsize[0] / 2))
+                y = int(y + (textsize[1] / 2))
+
+                cv2.putText(image, text,
+                                (x, y),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.75, (255, 0, 0), 2)
+        if self.path != []:
+            prev = self.path[0]
+            for current in self.path[1:]:
+                cv2.line(image, self.world.to_world(*prev), self.world.to_world(*current), (0,0,255), 1)
+                prev = current
+
+
         return image
 
     def plan(self, start, end):
@@ -34,6 +50,35 @@ class NF1Planner:
         end = self.world.to_map(*end)
 
         self.__mark_all(end, 0)
+
+        corners = [ (1,0), (-1,0), (0,1), (0,-1), (1,1), (1,-1), (-1,1), (-1,-1) ]
+
+        path = [ start ]
+        current = start
+
+        while current != end:
+            minimum_point = None
+            minimum_val = None
+
+            for c in corners:
+                next_point = self.__add(current, c)
+                v = self.mark_map[next_point]
+                if v >= 0:
+                    if minimum_point is None:
+                        minimum_point = next_point
+                        minimum_val = v
+                    else:
+                        if v < minimum_val:
+                            minimum_point = next_point
+                            minimum_val = v
+
+            current = minimum_point
+            path.append(current)
+
+        self.path = path
+
+        return path
+
 
 
     def __mark_all(self, point, value):
@@ -76,7 +121,7 @@ if __name__ == "__main__":
     w.add_rectangle_obstacle(500, 500, 700, 600)
     w.add_rectangle_obstacle(200, 200, 300, 800)
     nf1 = NF1Planner(w)
-    nf1.plan((100,100),(900,900))
+    nf1.plan((500,200),(900,900))
     img = nf1.world_to_image()
     cv2.imshow("world", img)
     cv2.waitKey(0)

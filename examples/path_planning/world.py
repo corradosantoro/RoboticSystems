@@ -16,6 +16,8 @@ class World:
             for x in range(self.w):
                 self.world_map[ (x,y) ] = 0
 
+        self.obstacles = []
+
         # borders
         for x in range(self.w):
             self.world_map[ (x,0) ] = 1
@@ -33,13 +35,17 @@ class World:
         return int(x / self.scale), int(y / self.scale)
 
     def to_world(self, x, y):
-        return x * self.scale + self.scale/2, y * self.scale + self.scale/2
+        return int(x * self.scale + self.scale/2), int(y * self.scale + self.scale/2)
 
     def add_rectangle_obstacle(self, x0, y0, x1, y1):
         (x0, y0) = self.to_map(x0, y0)
         (x1, y1) = self.to_map(x1, y1)
 
+        obstacle_points = []
         for y in range(y0, y1 + 1):
             for x in range(x0, x1 + 1):
+                obstacle_points.append( (x, y) )
                 self.world_map[ (x,y) ] = 1
+        self.obstacles.append(obstacle_points)
+
 
